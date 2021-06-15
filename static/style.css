@@ -1,0 +1,50 @@
+/*
+*
+*  Theming
+*
+*/
+.dark {
+  background-color: #111;
+  background: #111;
+  color: #fff;
+}
+
+.toggle-theme:checked {
+  background-color: #333;
+}
+
+.dark-navbar {
+  background-color: #1266F1;
+  background: #1266F1
+}
+
+.footer {
+  background-color: #f8f9fa;
+}
+
+.dark-footer {
+  background-color: #222;
+}
+
+nav {
+  background-color: #111;
+}
+
+#signup-btn {
+  background: transparent;
+  color: deepskyblue;
+}
+
+#login-btn {
+  background: transparent;
+  color: deepskyblue;
+}
+
+#logout-btn {
+  background: transparent;
+  color: deepskyblue;
+}
+
+.dark-auth-buttons {
+  color: #fff!important;
+}
