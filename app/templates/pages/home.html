@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{% endblock %}
 {% block content %}
-<h1 class="display-1 text-center p-2">Welcome to <span style="color: #FF4500;">AYJ's</span> Chess Club!</h1>
+<h1 class="display-1 text-center py-2">Welcome to <span style="color: #FF4500;">AYJ's</span> Chess Club!</h1>
 {% if user.is_authenticated %}
 <div class="container px-4 py-2">
 <hr>
@@ -79,9 +79,17 @@
   <div class="py-2">
     <div class="py-2 announcement text-start border rounded-3 border-2">
       <div class="p-2 px-3">
-        <h1 class="h3"><u>{{ announcement.title }}</u></h1>
+        <div class="d-flex">
+          <h1 class="h3 flex-grow-1"><u>{{ announcement.title | safe}}</u></h1>
+          <a class="px-2" href="{% url 'update-announcement' announcement.pk %}">
+            <i class="bi bi-pencil"></i>
+          </a>
+          <a class="px-2 text-danger" href="">
+            <i class="bi bi-trash"></i>
+          </a>
+        </div>
         <p class="lead">{{ announcement.author }} - {{ announcement.announcement_date }}</p>
-        <p>{{ announcement.body | truncatewords:80 }}</p>
+        <p>{{ announcement.body | truncatewords:80 | safe}}</p>
         <a href="{% url 'announcement-detail-page' announcement.pk %}">Read more</a>
       </div>
     </div>
