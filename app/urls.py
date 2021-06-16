@@ -1,14 +1,24 @@
 from django.urls import path
 from . import views
-from .views import HomeView, AnnouncementDetailView, AddAnnouncementView, UpdateAnnouncementView
+from .views import (
+    HomeView,
+    AnnouncementDetailView,
+    AddAnnouncementView,
+    UpdateAnnouncementView,
+)
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
+    path("admins/dashboard/", views.Dashboard, name="admin-dashboard"),
     path(
         "announcements/<int:pk>",
         AnnouncementDetailView.as_view(),
         name="announcement-detail-page",
     ),
     path("add-announcement/", AddAnnouncementView.as_view(), name="add-announcement"),
-    path("announcements/edit/<int:pk>", UpdateAnnouncementView.as_view(), name="update-announcement")
+    path(
+        "announcements/edit/<int:pk>",
+        UpdateAnnouncementView.as_view(),
+        name="update-announcement",
+    ),
 ]

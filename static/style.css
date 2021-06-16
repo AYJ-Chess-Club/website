@@ -45,6 +45,15 @@ nav {
   color: deepskyblue;
 }
 
+#fancy-sudo {
+  background-color: #F0F0F0;
+}
+
+.dark-fancy-sudo {
+  color: #abb2bf!important;
+  background-color: #282c34!important;
+}
+
 .dark-auth-buttons {
   color: #fff!important;
 }

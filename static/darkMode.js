@@ -33,6 +33,9 @@ if (getCookie("isDark") == 1) {
   try {
     document.getElementById("login-btn").classList.add("dark-auth-buttons")
   } catch (e) { console.log(e) }
+  try {
+    document.getElementById("fancy-sudo").classList.add("dark-fancy-sudo")
+  } catch (e) { console.log(e) }
 }
 
 const toggleDark = () => {
@@ -48,6 +51,9 @@ const toggleDark = () => {
   } catch (e) { console.log(e) }
   try {
     document.getElementById("navbar").classList.toggle("dark-navbar")
+  } catch (e) { console.log(e) }
+  try {
+    document.getElementById("fancy-sudo").classList.toggle("dark-fancy-sudo")
   } catch (e) { console.log(e) }
   setCookie("isDark", getCookie("isDark") == 1 ? 0 : 1, 7)
 }
