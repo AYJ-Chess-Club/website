@@ -7,14 +7,16 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0006_remove_addannouncement_announcement_date'),
+        ("app", "0006_remove_addannouncement_announcement_date"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='addannouncement',
-            name='announcement_date',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            model_name="addannouncement",
+            name="announcement_date",
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
         ),
     ]

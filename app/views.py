@@ -45,6 +45,7 @@ class HomeView(ListView):
     context_object_name = "announcements"
     ordering = ["-announcement_date"]
 
+
 class AnnouncementDetailView(DetailView):
     model = addAnnouncement
     template_name = "announcements/announcement.html"

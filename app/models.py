@@ -11,7 +11,7 @@ class addAnnouncement(models.Model):
     announcement_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title + "-" + str(self.announcement_date) + "-"  + str(self.author)
+        return self.title + "-" + str(self.announcement_date) + "-" + str(self.author)
 
     def get_absolute_url(self):
         return reverse("announcement-detail-page", kwargs={"pk": self.pk})
