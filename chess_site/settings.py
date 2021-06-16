@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "ckeditor",
     "app",
 ]
 
@@ -130,3 +131,56 @@ MESSAGE_TAGS = {
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# CKEDITOR
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": "Custom",
+        "toolbar_Custom": [
+            ["Styles", "Format", "Font", "FontSize", "CodeSnippet"],
+            [
+                "Bold",
+                "Italic",
+                "Underline",
+                "Strike",
+                "-",
+                "Undo",
+                "Redo",
+                "-",
+                "Cut",
+                "Copy",
+                "Paste",
+                "Find",
+                "Replace",
+                "-",
+                "Outdent",
+                "Indent",
+                "-",
+                "Print",
+            ],
+            [
+                "NumberedList",
+                "BulletedList",
+                "-",
+                "JustifyLeft",
+                "JustifyCenter",
+                "JustifyRight",
+                "JustifyBlock",
+            ],
+            [
+                "Image",
+                "Table",
+                "-",
+                "Link",
+                "Flash",
+                "Smiley",
+                "TextColor",
+                "BGColor",
+                "Source",
+            ],
+        ],
+        "height": 600,
+        "width": "auto",
+        "extraPlugins": ",".join(["codesnippet"]),
+    },
+}

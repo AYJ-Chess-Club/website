@@ -3,11 +3,12 @@ from django.conf import settings as config_settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 class addAnnouncement(models.Model):
     title = models.CharField(max_length=225)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    body = models.TextField()
+    body = RichTextField(blank=True, null=True)
     announcement_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
