@@ -1,5 +1,127 @@
 {% extends 'base.html' %}
 {% block title %}{% endblock %}
 {% block content %}
-  <h1>Hello World</h1>
+<h1 class="display-1 text-center p-2">Welcome to <span style="color: #FF4500;">AYJ's</span> Chess Club!</h1>
+{% if user.is_authenticated %}
+<div class="container px-4 py-2">
+<hr>
+{% else %}
+<div class="container-xxl text-center">
+  <div class="row row-cols-1 row-cols-lg-3 p-3">
+    <div class="col py-2">
+      <div class="card h-100 bg-transparent border border-2">
+        <img src="https://images.unsplash.com/flagged/photo-1570551502611-c590dc45f644?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1512&q=80" alt="" class="card-img-top">
+        <div class="card-body">
+          <div class="text-start">
+            <h4 class="card-title">Learn Chess</h4>
+            <p class="card-text">
+              Lessons and resources curated by prestigious tournament winners.
+            </p>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent text-start border-top">
+          <a href="">
+          <button class="btn btn-primary">Take a look!</button>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col py-2">
+      <div class="card h-100 bg-transparent border border-2">
+        <div class="featured lead fw-bold">
+          We want you!
+        </div>
+        <img src="https://images.unsplash.com/photo-1602968407815-5963b28c66af?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80" alt="" class="card-img-top">
+        <div class="card-body">
+          <div class="text-start">
+            <h4 class="card-title">Join the club!</h4>
+            <p class="card-text">
+            <ul>
+              <li>Fun times</li>
+              <li>Play against your friends</li>
+              <li>Gradually ascend the ranks and become grandmaster of this club!</li>
+            </ul>
+            </p>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent text-start border-top">
+          <a href="">
+          <button class="btn btn-primary">Sign Up</button>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col py-2">
+      <div class="card h-100 bg-transparent border border-2">
+        <img src="https://images.unsplash.com/photo-1571236207041-5fb70cec466e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&h=500&q=80" alt="" class="card-img-top">
+        <div class="card-body" id="card">
+          <div class="text-start">
+            <h4 class="card-title">Compete in tournaments</h4>
+            <p class="card-text">
+              Ascend the ranks and take the title of champion!
+            </p>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent text-start border-top">
+          <a href="">
+          <button class="btn btn-primary">Start now!</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container px-4 py-2">
+  <hr>
+  {% endif %}
+  <h1 id="announcements">Announcements</h1>
+  {% for announcement in announcements %}
+  <div class="py-2">
+    <div class="py-2 announcement text-start border rounded-3 border-2">
+      <div class="p-2 px-3">
+        <h1 class="h3"><u>{{ announcement.title }}</u></h1>
+        <p class="lead">{{ announcement.author }} - {{ announcement.announcement_date }}</p>
+        <p>{{ announcement.body | truncatewords:80 }}</p>
+        <a href="{% url 'announcement-detail-page' announcement.pk %}">Read more</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="py-2">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}#announcements" aria-label="Previous">
+        <span>&laquo;</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="disabled page-item">
+        <a class="disabled page-link" href="" aria-label="Previous">
+        <span>&laquo;</span>
+        </a>
+      </li>
+      {% endif %}
+      {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+      <li class="page-item active"><a class="page-link active" href="?page={{ i }}#announcements">{{ i }}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{ i }}#announcements">{{ i }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}#announcements" aria-label="Next">
+        <span>&raquo;</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="disabled page-item">
+        <a class="disabled page-link" href="" aria-label="Previous">
+        <span>&raquo;</span>
+        </a>
+        {% endif %}
+    </ul>
+  </div>
+</div>
 {% endblock %}

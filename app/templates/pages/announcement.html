@@ -1,0 +1,14 @@
+{% extends 'pages/announcement_base.html' %}
+{% block js %}
+<script>
+  const goBack = () => {
+    window.history.go(-1);
+  };
+</script>
+{% endblock %}
+{% block content %}
+<br>
+<h1>Announcement - {{ addannouncement.title }}</h1>
+<p class="lead fs-4">{{ addannouncement.author }} - {{ addannouncement.announcement_date }}</p>
+<p>{{ addannouncement.body }}</p>
+{% endblock %}
