@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from .models import addAnnouncement
+from .models import addAnnouncement, addLesson
 from django.contrib.auth.models import User
-from .forms import AnnouncementForm, EditAnnouncementForm
+from .forms import AnnouncementForm, EditAnnouncementForm, LessonForm, EditLessonForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -63,3 +63,28 @@ class UpdateAnnouncementView(SuccessMessageMixin, UpdateView):
     template_name = "announcements/update_announcement.html"
     form_class = EditAnnouncementForm
     success_message = "Your announcement was updated successfully"
+
+def LessonLandingPage(request):
+     return render(request, "lessons/lesson_difficulty.html")
+
+def LessonDisplayView(request, diff):
+    diff_original = diff.capitalize()
+    diff_lessons = addLesson.objects.filter(difficulty=diff_original)
+    print(diff_lessons)
+    return render(request, "lessons/lesson.html", {"diff": diff_original, "diff_lessons": diff_lessons})
+
+class AddLessonView(SuccessMessageMixin, CreateView):
+    model = addLesson
+    form_class = LessonForm
+    template_name = "lessons/add_lesson.html"
+    success_message = "Your lessons was posted successfully"
+
+class LessonDetailView(DetailView):
+    model = addLesson
+    template_name = "lessons/lesson_detail_view.html"
+
+class UpdateLessonView(SuccessMessageMixin, UpdateView):
+    model = addLesson
+    template_name = "lessons/update_lesson.html"
+    form_class = EditLessonForm
+    success_message = "The lesson was updated successfully"

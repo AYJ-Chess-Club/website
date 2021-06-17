@@ -4,7 +4,12 @@ from .views import (
     HomeView,
     AnnouncementDetailView,
     AddAnnouncementView,
+    LessonDetailView,
+    LessonDisplayView,
+    LessonLandingPage,
     UpdateAnnouncementView,
+    AddLessonView,
+    UpdateLessonView
 )
 
 urlpatterns = [
@@ -15,10 +20,15 @@ urlpatterns = [
         AnnouncementDetailView.as_view(),
         name="announcement-detail-page",
     ),
-    path("add-announcement/", AddAnnouncementView.as_view(), name="add-announcement"),
+    path("admins/add-announcement/", AddAnnouncementView.as_view(), name="add-announcement"),
     path(
-        "announcements/edit/<int:pk>",
+        "admins/announcements/edit/<int:pk>",
         UpdateAnnouncementView.as_view(),
         name="update-announcement",
     ),
+    path("admins/add-lessons/", AddLessonView.as_view(), name="add-lesson"),
+    path("difficulty/<str:diff>/", LessonDisplayView, name="difficulty-page"),
+    path("lessons/", LessonLandingPage, name="lesson-page"),
+    path("lessons/<int:pk>", LessonDetailView.as_view(), name="lesson-detail-page"),
+    path("admins/lessons/edit/<int:pk>", UpdateLessonView.as_view(), name="update-lesson")
 ]

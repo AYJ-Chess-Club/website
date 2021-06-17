@@ -60,7 +60,7 @@
   </head>
   <nav class="navbar navbar-expand-lg navbar-dark navbar-default navbar-static-top" id="navbar">
     <div class="container-fluid">
-    <a class="navbar-brand" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'home' %}{% endif %}">AYJ Chess Club</a>
+    <a class="navbar-brand" href="{% url 'admin-dashboard' %}">Dashboard</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbardropdown" aria-controls="navbardropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>

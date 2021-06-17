@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-sm py-4">
+  <h1>{{ diff }} level</h1>
+  <div class="row row-cols-1 row-cols-md-4">
+    {% for lesson in diff_lessons %}
+      <div class="col py-2">
+        <div class="card bg-transparent border border-2 p-2">
+          <div class="card-body">
+            <div class="card-title h5">
+              {{ lesson.title }}
+            </div>
+            <div class="lead">Instructed by: {{ lesson.author.first_name }} {{ lesson.author.last_name }}</div>
+            <div class="py-2">
+              <a href="{% url 'lesson-detail-page' lesson.pk %}" class="text-decoration-none">
+                View Lesson&nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-box-arrow-up-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

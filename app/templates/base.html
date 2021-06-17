@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   {% load static %}
+  {% load auth_extras %}
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,55 +61,69 @@
   </head>
   <nav class="navbar navbar-expand-lg navbar-dark navbar-default navbar-static-top" id="navbar">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'home' %}{% endif %}">AYJ Chess Club</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbardropdown" aria-controls="navbardropdown">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse show" id="navbardropdown">
-        <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}">Resources</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}">Contact</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ms-auto">
+    <a class="navbar-brand" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'home' %}{% endif %}">AYJ Chess Club</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbardropdown" aria-controls="navbardropdown">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse show" id="navbardropdown">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'lesson-page' %}">Lessons</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Resources</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Contact</a>
+        </li>
+        {% if request.user|in_group:"execs" %}
           <li class="nav-item">
-              <div class="form-check form-switch nav-link pb-4">
-                <input class="form-check-input ms-auto toggle-theme" type="checkbox" onclick="toggleDark()" />
-              </div>
-            </li>
-            {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a href="{% url 'home' %}" class="nav-link" id="logout-btn">
-                  Logout
-                </a>
-              </li>
-            {% else %}
-              <li class="nav-item">
-                <a href="{% url 'home' %}" class="nav-link" id="signup-btn">
-                  Sign up
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'home' %}" class="nav-link" id="login-btn">
-                  Login
-                </a>
-              </li>
-            {% endif %}
-        </ul>
+          <a class="nav-link" href="{% url 'add-announcement' %}">Add Announcement</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'add-lesson' %}">Add Lesson</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Add Blog post</a>
+        </li>
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <div class="form-check form-switch nav-link pb-4">
+            <input class="form-check-input ms-auto toggle-theme" type="checkbox" onclick="toggleDark()" />
+          </div>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'home' %}" class="nav-link" id="logout-btn">
+          Logout
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'home' %}" class="nav-link" id="signup-btn">
+          Sign up
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'home' %}" class="nav-link" id="login-btn">
+          Login
+          </a>
+        </li>
+        {% endif %}
+      </ul>
     </div>
   </nav>
   {% if messages %}
-    {% for message in messages %}
-      <div class="alert {{ message.tags }} alert-dismissable" role="alert">
-        <div class="d-flex">
-          <div class="flex-grow-1">{{ message }}</div>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      </div>
-    {% endfor %}
+  {% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissable" role="alert">
+    <div class="d-flex">
+      <div class="flex-grow-1">{{ message }}</div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+  {% endfor %}
   {% endif %}
   <body>
     {% block content %}
