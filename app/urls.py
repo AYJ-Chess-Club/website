@@ -10,7 +10,8 @@ from .views import (
     UpdateAnnouncementView,
     AddLessonView,
     UpdateLessonView,
-    DeleteAnnouncementView
+    DeleteAnnouncementView,
+    DeleteLessonView
 )
 
 urlpatterns = [
@@ -36,5 +37,6 @@ urlpatterns = [
     path("difficulty/<str:diff>/", LessonDisplayView, name="difficulty-page"),
     path("lessons/", LessonLandingPage, name="lesson-page"),
     path("lessons/<int:pk>", LessonDetailView.as_view(), name="lesson-detail-page"),
-    path("admins/lessons/edit/<int:pk>", UpdateLessonView.as_view(), name="update-lesson")
+    path("admins/lessons/edit/<int:pk>", UpdateLessonView.as_view(), name="update-lesson"),
+    path("admins/lessons/<int:pk>/delete", DeleteLessonView.as_view(), name="delete-lesson")
 ]

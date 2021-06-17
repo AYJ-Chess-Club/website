@@ -74,7 +74,7 @@ class DeleteAnnouncementView(SuccessMessageMixin, DeleteView):
     template_name = "announcements/delete_announcement.html"
     
     def get_success_url(self):
-        messages.success(self.request, "Announcement was successfully deleted")
+        messages.success(self.request, "The announcement was successfully deleted")
         return reverse("admin-dashboard")
 
 def LessonLandingPage(request):
@@ -101,3 +101,11 @@ class UpdateLessonView(SuccessMessageMixin, UpdateView):
     template_name = "lessons/update_lesson.html"
     form_class = EditLessonForm
     success_message = "The lesson was updated successfully"
+
+class DeleteLessonView(SuccessMessageMixin, DeleteView):
+    model = addLesson
+    template_name = "lessons/delete_lesson.html"
+    
+    def get_success_url(self):
+        messages.success(self.request, "The lesson was successfully deleted")
+        return reverse("admin-dashboard")
