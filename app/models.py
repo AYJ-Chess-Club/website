@@ -12,7 +12,7 @@ class lessonDifficulty(models.Model):
 
     def get_absolute_url(self):
         return reverse("home")
-    
+
 
 class addAnnouncement(models.Model):
     title = models.CharField(max_length=225)
@@ -25,6 +25,7 @@ class addAnnouncement(models.Model):
 
     def get_absolute_url(self):
         return reverse("home")
+
 
 class addLesson(models.Model):
     title = models.CharField(max_length=225)

@@ -5,11 +5,15 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 from django.contrib import messages
 from django.urls import reverse
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  UpdateView)
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
-from .forms import (AnnouncementForm, EditAnnouncementForm, EditLessonForm,
-                    LessonForm)
+from .forms import AnnouncementForm, EditAnnouncementForm, EditLessonForm, LessonForm
 from .models import addAnnouncement, addLesson
 
 
@@ -69,22 +73,30 @@ class UpdateAnnouncementView(SuccessMessageMixin, UpdateView):
     form_class = EditAnnouncementForm
     success_message = "Your announcement was updated successfully"
 
+
 class DeleteAnnouncementView(SuccessMessageMixin, DeleteView):
     model = addAnnouncement
     template_name = "announcements/delete_announcement.html"
-    
+
     def get_success_url(self):
         messages.success(self.request, "The announcement was successfully deleted")
         return reverse("admin-dashboard")
 
+
 def LessonLandingPage(request):
-     return render(request, "lessons/lesson_difficulty.html")
+    return render(request, "lessons/lesson_difficulty.html")
+
 
 def LessonDisplayView(request, diff):
     diff_original = diff.capitalize()
     diff_lessons = addLesson.objects.filter(difficulty=diff_original)
     print(diff_lessons)
-    return render(request, "lessons/lesson.html", {"diff": diff_original, "diff_lessons": diff_lessons})
+    return render(
+        request,
+        "lessons/lesson.html",
+        {"diff": diff_original, "diff_lessons": diff_lessons},
+    )
+
 
 class AddLessonView(SuccessMessageMixin, CreateView):
     model = addLesson
@@ -92,9 +104,11 @@ class AddLessonView(SuccessMessageMixin, CreateView):
     template_name = "lessons/add_lesson.html"
     success_message = "Your lessons was posted successfully"
 
+
 class LessonDetailView(DetailView):
     model = addLesson
     template_name = "lessons/lesson_detail_view.html"
+
 
 class UpdateLessonView(SuccessMessageMixin, UpdateView):
     model = addLesson
@@ -102,10 +116,11 @@ class UpdateLessonView(SuccessMessageMixin, UpdateView):
     form_class = EditLessonForm
     success_message = "The lesson was updated successfully"
 
+
 class DeleteLessonView(SuccessMessageMixin, DeleteView):
     model = addLesson
     template_name = "lessons/delete_lesson.html"
-    
+
     def get_success_url(self):
         messages.success(self.request, "The lesson was successfully deleted")
         return reverse("admin-dashboard")

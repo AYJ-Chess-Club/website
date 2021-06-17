@@ -10,19 +10,33 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('app', '0009_lessondifficulty_difficulty'),
+        ("app", "0009_lessondifficulty_difficulty"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='addLesson',
+            name="addLesson",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=225)),
-                ('difficulty', models.CharField(default='Easy', max_length=225)),
-                ('body', ckeditor.fields.RichTextField(blank=True, null=True)),
-                ('lesson_date', models.DateTimeField(auto_now_add=True)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=225)),
+                ("difficulty", models.CharField(default="Easy", max_length=225)),
+                ("body", ckeditor.fields.RichTextField(blank=True, null=True)),
+                ("lesson_date", models.DateTimeField(auto_now_add=True)),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

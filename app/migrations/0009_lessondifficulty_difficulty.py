@@ -7,13 +7,13 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0008_lessondifficulty'),
+        ("app", "0008_lessondifficulty"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='lessondifficulty',
-            name='difficulty',
+            model_name="lessondifficulty",
+            name="difficulty",
             field=models.CharField(default=django.utils.timezone.now, max_length=225),
             preserve_default=False,
         ),
