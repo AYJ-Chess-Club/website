@@ -1,10 +1,10 @@
 {% extends 'admin/layout.html' %}
 {% block content %}
-<h1>Update Announcement</h1>
+<h1>Edit Announcement</h1>
 <form action="" method="POST" class="form-group p-4 border rounded-3 bg-light text-dark">
   {% csrf_token %}
   {{ form.as_p }}
   {{ form.media }}
-  <button class="btn btn-primary">Update Announcement</button>
+  <button class="btn btn-primary">Edit Announcement</button>
 </form>
 {% endblock %}

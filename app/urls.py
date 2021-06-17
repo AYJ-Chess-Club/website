@@ -9,7 +9,8 @@ from .views import (
     LessonLandingPage,
     UpdateAnnouncementView,
     AddLessonView,
-    UpdateLessonView
+    UpdateLessonView,
+    DeleteAnnouncementView
 )
 
 urlpatterns = [
@@ -25,6 +26,11 @@ urlpatterns = [
         "admins/announcements/edit/<int:pk>",
         UpdateAnnouncementView.as_view(),
         name="update-announcement",
+    ),
+    path(
+        "admins/announcements/<int:pk>/delete",
+        DeleteAnnouncementView.as_view(),
+        name="delete-announcement",
     ),
     path("admins/add-lessons/", AddLessonView.as_view(), name="add-lesson"),
     path("difficulty/<str:diff>/", LessonDisplayView, name="difficulty-page"),

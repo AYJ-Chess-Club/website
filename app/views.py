@@ -1,11 +1,16 @@
-from django.shortcuts import render
 from django.contrib.auth import get_user_model
-from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from .models import addAnnouncement, addLesson
 from django.contrib.auth.models import User
-from .forms import AnnouncementForm, EditAnnouncementForm, LessonForm, EditLessonForm
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.shortcuts import render
+from django.contrib import messages
+from django.urls import reverse
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
+
+from .forms import (AnnouncementForm, EditAnnouncementForm, EditLessonForm,
+                    LessonForm)
+from .models import addAnnouncement, addLesson
 
 
 # Create your views here.
@@ -63,6 +68,14 @@ class UpdateAnnouncementView(SuccessMessageMixin, UpdateView):
     template_name = "announcements/update_announcement.html"
     form_class = EditAnnouncementForm
     success_message = "Your announcement was updated successfully"
+
+class DeleteAnnouncementView(SuccessMessageMixin, DeleteView):
+    model = addAnnouncement
+    template_name = "announcements/delete_announcement.html"
+    
+    def get_success_url(self):
+        messages.success(self.request, "Announcement was successfully deleted")
+        return reverse("admin-dashboard")
 
 def LessonLandingPage(request):
      return render(request, "lessons/lesson_difficulty.html")
