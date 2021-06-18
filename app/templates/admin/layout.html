@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   {% load static %}
+  {% load auth_extras %}
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,7 +61,7 @@
   </head>
   <nav class="navbar navbar-expand-lg navbar-dark navbar-default navbar-static-top" id="navbar">
     <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'admin-dashboard' %}">Dashboard</a>
+    <a class="navbar-brand" href="{% if request.user|in_group:"execs" %}{% url 'admin-dashboard' %}{% else %}{% url 'home' %}{% endif %}">{% if request.user|in_group:"execs" %}Dashboard{% else %}AYJ Chess Club{% endif %}</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbardropdown" aria-controls="navbardropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -69,12 +70,14 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'home' %}">Site Home</a>
         </li>
+        {% if request.user|in_group:"execs" %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'add-announcement' %}">Add Announcement</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'add-lesson' %}">Add Lesson</a>
         </li>
+        {% endif %}
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
