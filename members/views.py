@@ -89,6 +89,7 @@ def login_request(request):
 
     return render(request, "login.html")
 
+
 def logout_request(request):
     logout(request)
     messages.success(request, "Successfully logged out.")
