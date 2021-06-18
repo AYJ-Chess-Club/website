@@ -90,13 +90,13 @@
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a href="{% url 'home' %}" class="nav-link" id="logout-btn">
+          <a href="{% url 'logout' %}" class="nav-link" id="logout-btn">
           Logout
           </a>
         </li>
         {% else %}
         <li class="nav-item">
-          <a href="{% url 'home' %}" class="nav-link" id="signup-btn">
+          <a href="{% url 'register' %}" class="nav-link" id="signup-btn">
           Sign up
           </a>
         </li>

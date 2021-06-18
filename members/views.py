@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -65,7 +65,7 @@ def activate(request, uidb64, token):
         messages.success(
             request, "Your account was successfully activated. Please login."
         )
-        return render(request, "register.html")
+        return render(request, "login.html")
     else:
         messages.error(request, "Sorry, that activation link is invalid!")
         return render(request, "register.html")
@@ -88,3 +88,8 @@ def login_request(request):
             return render(request, "login.html")
 
     return render(request, "login.html")
+
+def logout_request(request):
+    logout(request)
+    messages.success(request, "Successfully logged out.")
+    return redirect("/")
