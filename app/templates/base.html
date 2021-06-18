@@ -78,13 +78,7 @@
         </li>
         {% if request.user|in_group:"execs" %}
           <li class="nav-item">
-          <a class="nav-link" href="{% url 'add-announcement' %}">Add Announcement</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'add-lesson' %}">Add Lesson</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}">Add Blog post</a>
+          <a class="nav-link" href="{% url 'admin-dashboard' %}">Site Dashboard</a>
         </li>
         {% endif %}
       </ul>
@@ -107,7 +101,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{% url 'home' %}" class="nav-link" id="login-btn">
+          <a href="{% url 'login' %}" class="nav-link" id="login-btn">
           Login
           </a>
         </li>

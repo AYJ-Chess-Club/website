@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "app",
+    "members",
     "ckeditor",
 ]
 
@@ -184,3 +185,13 @@ CKEDITOR_CONFIGS = {
         "extraPlugins": ",".join(["codesnippet"]),
     },
 }
+
+# SMTP
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+MAILER_EMAIL_BACKEND = EMAIL_BACKEND
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

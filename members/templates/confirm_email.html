@@ -1,0 +1,15 @@
+{% autoescape off %}  
+Hi {{ user.username }},
+
+We've received an account creation request from your email.
+
+To confirm your registration, click on the following link:
+
+http://{{ domain }}{% url 'confirm-account' uidb64=uid token=token %}
+
+If you have not requested an account on our website, please ignore this email.
+
+
+A. Y. Jackson Chess Club
+
+{% endautoescape %}
