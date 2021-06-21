@@ -6,42 +6,42 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('members', '0006_userprofile_user_facebook_link'),
+        ("members", "0006_userprofile_user_facebook_link"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='userprofile',
-            old_name='user_discord_link',
-            new_name='user_discord_username',
+            model_name="userprofile",
+            old_name="user_discord_link",
+            new_name="user_discord_username",
         ),
         migrations.RenameField(
-            model_name='userprofile',
-            old_name='user_facebook_link',
-            new_name='user_facebook_username',
+            model_name="userprofile",
+            old_name="user_facebook_link",
+            new_name="user_facebook_username",
         ),
         migrations.RenameField(
-            model_name='userprofile',
-            old_name='user_github_link',
-            new_name='user_github_username',
+            model_name="userprofile",
+            old_name="user_github_link",
+            new_name="user_github_username",
         ),
         migrations.RenameField(
-            model_name='userprofile',
-            old_name='user_instagram_link',
-            new_name='user_instagram_username',
+            model_name="userprofile",
+            old_name="user_instagram_link",
+            new_name="user_instagram_username",
         ),
         migrations.RenameField(
-            model_name='userprofile',
-            old_name='user_lichess_link',
-            new_name='user_lichess_username',
+            model_name="userprofile",
+            old_name="user_lichess_link",
+            new_name="user_lichess_username",
         ),
         migrations.RenameField(
-            model_name='userprofile',
-            old_name='user_lichess_profile_link',
-            new_name='user_website_username',
+            model_name="userprofile",
+            old_name="user_lichess_profile_link",
+            new_name="user_website_username",
         ),
         migrations.RemoveField(
-            model_name='userprofile',
-            name='user_website_link',
+            model_name="userprofile",
+            name="user_website_link",
         ),
     ]

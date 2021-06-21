@@ -42,7 +42,7 @@ def register(request):
             )
             to_email = form.cleaned_data.get("email")
             email = EmailMessage(mail_subject, message, to=[to_email])
-            email.content_subtype = "html" 
+            email.content_subtype = "html"
             email.send()
             messages.success(
                 request,
@@ -96,6 +96,7 @@ def logout_request(request):
     messages.success(request, "Successfully logged out.")
     return redirect("/")
 
+
 class ShowProfileView(DetailView):
     model = UserProfile
     template_name = "profile.html"
@@ -104,7 +105,9 @@ class ShowProfileView(DetailView):
         context = super(ShowProfileView, self).get_context_data(*args, **kwargs)
         profile_username = self.kwargs.get("username")
         current_profile_username = get_object_or_404(User, username=profile_username)
-        identicon_data = requests.get(f"https://identiconapi.ayjchess.repl.co/api/v0.1.0/b64/{current_profile_username}").text
+        identicon_data = requests.get(
+            f"https://identiconapi.ayjchess.repl.co/api/v0.1.0/b64/{current_profile_username}"
+        ).text
         context["identicon_data"] = identicon_data
         return context
 
@@ -112,6 +115,7 @@ class ShowProfileView(DetailView):
         profile_username = self.kwargs.get("username")
         current_profile_username = get_object_or_404(User, username=profile_username)
         return current_profile_username
+
 
 class EditProfileView(SuccessMessageMixin, UpdateView):
     model = UserProfile

@@ -7,48 +7,60 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('members', '0002_userprofile_user_profile_pic'),
+        ("members", "0002_userprofile_user_profile_pic"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
-            name='user_cfc_rating',
-            field=models.IntegerField(default=100, validators=[django.core.validators.MinValueValidator(100), django.core.validators.MaxValueValidator(3500)]),
+            model_name="userprofile",
+            name="user_cfc_rating",
+            field=models.IntegerField(
+                default=100,
+                validators=[
+                    django.core.validators.MinValueValidator(100),
+                    django.core.validators.MaxValueValidator(3500),
+                ],
+            ),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='user_discord_link',
+            model_name="userprofile",
+            name="user_discord_link",
             field=models.CharField(blank=True, max_length=10000),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='user_fide_rating',
-            field=models.IntegerField(default=1001, validators=[django.core.validators.MinValueValidator(1001), django.core.validators.MaxValueValidator(3500)]),
+            model_name="userprofile",
+            name="user_fide_rating",
+            field=models.IntegerField(
+                default=1001,
+                validators=[
+                    django.core.validators.MinValueValidator(1001),
+                    django.core.validators.MaxValueValidator(3500),
+                ],
+            ),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='user_github_link',
+            model_name="userprofile",
+            name="user_github_link",
             field=models.CharField(blank=True, max_length=10000),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='user_instagram_link',
+            model_name="userprofile",
+            name="user_instagram_link",
             field=models.CharField(blank=True, max_length=10000),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='user_lichess_link',
+            model_name="userprofile",
+            name="user_lichess_link",
             field=models.CharField(blank=True, max_length=10000),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='user_lichess_profile_link',
+            model_name="userprofile",
+            name="user_lichess_profile_link",
             field=models.CharField(blank=True, max_length=10000),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='user_website_link',
+            model_name="userprofile",
+            name="user_website_link",
             field=models.CharField(blank=True, max_length=10000),
         ),
     ]

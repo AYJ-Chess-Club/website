@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 from django.contrib import messages
@@ -59,6 +58,7 @@ class HomeView(ListView):
 class AnnouncementDetailView(DetailView):
     model = addAnnouncement
     template_name = "announcements/announcement.html"
+
 
 class AddAnnouncementView(SuccessMessageMixin, CreateView):
     model = addAnnouncement

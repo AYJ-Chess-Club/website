@@ -7,18 +7,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('members', '0004_auto_20210620_1211'),
+        ("members", "0004_auto_20210620_1211"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='userprofile',
-            name='user_cfc_rating',
-            field=models.IntegerField(default=0, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(3500)]),
+            model_name="userprofile",
+            name="user_cfc_rating",
+            field=models.IntegerField(
+                default=0,
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(3500),
+                ],
+            ),
         ),
         migrations.AlterField(
-            model_name='userprofile',
-            name='user_fide_rating',
-            field=models.IntegerField(default=0, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(3500)]),
+            model_name="userprofile",
+            name="user_fide_rating",
+            field=models.IntegerField(
+                default=0,
+                validators=[
+                    django.core.validators.MinValueValidator(0),
+                    django.core.validators.MaxValueValidator(3500),
+                ],
+            ),
         ),
     ]

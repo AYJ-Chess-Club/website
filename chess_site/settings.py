@@ -136,7 +136,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CKEDITOR
 CKEDITOR_CONFIGS = {
     "default": {
-        'allowedContent': True,
+        "allowedContent": True,
         "toolbar": "Custom",
         "toolbar_Custom": [
             ["Styles", "Format", "Font", "FontSize", "CodeSnippet"],

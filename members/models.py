@@ -8,8 +8,12 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     user_profile_pic = CharField(max_length=10000, blank=True)
-    user_cfc_rating = IntegerField(default=None, validators=[MinValueValidator(0), MaxValueValidator(3500)])
-    user_fide_rating = IntegerField(default=None, validators=[MinValueValidator(0), MaxValueValidator(3500)])
+    user_cfc_rating = IntegerField(
+        default=None, validators=[MinValueValidator(0), MaxValueValidator(3500)]
+    )
+    user_fide_rating = IntegerField(
+        default=None, validators=[MinValueValidator(0), MaxValueValidator(3500)]
+    )
     user_website_username = CharField(max_length=10000, blank=True)
     user_github_username = CharField(max_length=10000, blank=True)
     user_lichess_username = CharField(max_length=10000, blank=True)
