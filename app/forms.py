@@ -19,7 +19,14 @@ class AnnouncementForm(forms.ModelForm):
 
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
-            "author": forms.TextInput(attrs={"class": "form-control", "id": "author_field", "value": "", "type":"hidden",}),
+            "author": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "id": "author_field",
+                    "value": "",
+                    "type": "hidden",
+                }
+            ),
             "body": forms.Textarea(attrs={"class": "form-control"}),
         }
 
@@ -42,7 +49,14 @@ class LessonForm(forms.ModelForm):
 
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
-            "author": forms.TextInput(attrs={"class": "form-control", "id": "author_field", "value": "", "type":"hidden",}),
+            "author": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "id": "author_field",
+                    "value": "",
+                    "type": "hidden",
+                }
+            ),
             "difficulty": forms.Select(
                 choices=difficulty_levels, attrs={"class": "form-select"}
             ),

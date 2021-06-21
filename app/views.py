@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 from django.contrib import messages
@@ -59,7 +60,6 @@ class AnnouncementDetailView(DetailView):
     model = addAnnouncement
     template_name = "announcements/announcement.html"
 
-
 class AddAnnouncementView(SuccessMessageMixin, CreateView):
     model = addAnnouncement
     form_class = AnnouncementForm
@@ -90,7 +90,6 @@ def LessonLandingPage(request):
 def LessonDisplayView(request, diff):
     diff_original = diff.capitalize()
     diff_lessons = addLesson.objects.filter(difficulty=diff_original)
-    print(diff_lessons)
     return render(
         request,
         "lessons/lesson.html",

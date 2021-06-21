@@ -1,15 +1,21 @@
-{% autoescape off %}  
 Hi {{ user.username }},
-
+<br>
+<br>
 We've received an account creation request from your email.
-
+<br>
+<br>
 To confirm your registration, click on the following link:
-
+<br>
+<br>
 http://{{ domain }}{% url 'confirm-account' uidb64=uid token=token %}
-
+<br>
+<br>
 If you have not requested an account on our website, please ignore this email.
-
-
+<br>
+<br>
+<br>
 A. Y. Jackson Chess Club
+<br>
+<br>
+<a href="https://ayjchess.pythonanywhere.com">Website</a> | <a href="https://instagram.com/ayjchessclub">Instagram</a> | <a href="https://www.facebook.com/groups/176340034444236/">Facebook</a>
 
-{% endautoescape %}
