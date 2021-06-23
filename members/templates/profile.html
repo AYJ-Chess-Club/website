@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %}{{ user.username }} | AYJ Chess Club{% endblock title %}
 {% block js %}
 <script>
 hljs.highlightAll();
@@ -7,53 +8,52 @@ hljs.highlightAll();
 {% block content %}
 <div class="container py-5">
   <div class="container-xl px-3 px-md-4 px-lg-5">
+  <h3 class="text-wrap text-break">{{ user.username }}</h3>
+  <hr>
     <div class="flex-column flex-md-row d-flex">
       <div class="flex-shrink-0 col-12 col-md-3 mb-4 mb-md-0">
         {% if user.userprofile.user_profile_pic %}
-          <img src="{{ user.userprofile.user_profile_pic }}" class="border-2 border rounded-3" height=168 width=168 alt="">
+          <img src="{{ user.userprofile.user_profile_pic }}" class="border-2 border rounded-3" height="168" width="168" alt="">
         {% else %}
           <img src="data:image/png;base64, {{ identicon_data }}" class="border-2 border rounded-3" alt="">
         {% endif %}
-        <div class="py-1">
-        <h1>{{ user.username }}</h1>
-        <div class="py-2">
-          <h4>CFC Rating: <code>{% if user.userprofile.user_cfc_rating %}{{ user.userprofile.user_cfc_rating }}{% else %}N/A{% endif %}</code></h4>
-          <h4>FIDE Rating: <code>{% if user.userprofile.user_fide_rating %}{{ user.userprofile.user_fide_rating }}{% else %}N/A{% endif %}</code></h4>
-          <h4><u>Lichess Stats</u></h4>
-          <h4><u>Socials</u></h4>
-          <ul class="list-group" style="list-style: none;">
-            {% if user.userprofile.user_github_username %}
-              <li><img alt="GitHub followers" src="https://img.shields.io/github/followers/{{ user.userprofile.user_github_username }}?label=Follow&logo=github&style=social"></li>
-            {% endif %}
-            {% if user.userprofile.user_lichess_username %}
-              <li>
-                <a href="https://lichess.org/@/{{ user.userprofile.user_lichess_username }}">
-                  <img alt="Lichess profile" src="https://img.shields.io/badge/Lichess-ffffff?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI0NSIgaGVpZ2h0PSI0NSI+CjxnIHN0eWxlPSJvcGFjaXR5OjE7IGZpbGw6bm9uZTsgZmlsbC1vcGFjaXR5OjE7IGZpbGwtcnVsZTpldmVub2RkOyBzdHJva2U6IzAwMDAwMDsgc3Ryb2tlLXdpZHRoOjEuNTsgc3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7IHN0cm9rZS1kYXNoYXJyYXk6bm9uZTsgc3Ryb2tlLW9wYWNpdHk6MTsiPgo8cGF0aCBkPSJNIDIyLDEwIEMgMzIuNSwxMSAzOC41LDE4IDM4LDM5IEwgMTUsMzkgQyAxNSwzMCAyNSwzMi41IDIzLDE4IiBzdHlsZT0iZmlsbDojZmZmZmZmOyBzdHJva2U6IzAwMDAwMDsiLz4KPHBhdGggZD0iTSAyNCwxOCBDIDI0LjM4LDIwLjkxIDE4LjQ1LDI1LjM3IDE2LDI3IEMgMTMsMjkgMTMuMTgsMzEuMzQgMTEsMzEgQyA5Ljk1OCwzMC4wNiAxMi40MSwyNy45NiAxMSwyOCBDIDEwLDI4IDExLjE5LDI5LjIzIDEwLDMwIEMgOSwzMCA1Ljk5NywzMSA2LDI2IEMgNiwyNCAxMiwxNCAxMiwxNCBDIDEyLDE0IDEzLjg5LDEyLjEgMTQsMTAuNSBDIDEzLjI3LDkuNTA2IDEzLjUsOC41IDEzLjUsNy41IEMgMTQuNSw2LjUgMTYuNSwxMCAxNi41LDEwIEwgMTguNSwxMCBDIDE4LjUsMTAgMTkuMjgsOC4wMDggMjEsNyBDIDIyLDcgMjIsMTAgMjIsMTAiIHN0eWxlPSJmaWxsOiNmZmZmZmY7IHN0cm9rZTojMDAwMDAwOyIvPgo8cGF0aCBkPSJNIDkuNSAyNS41IEEgMC41IDAuNSAwIDEgMSA4LjUsMjUuNSBBIDAuNSAwLjUgMCAxIDEgOS41IDI1LjUgeiIgc3R5bGU9ImZpbGw6IzAwMDAwMDsgc3Ryb2tlOiMwMDAwMDA7Ii8+CjxwYXRoIGQ9Ik0gMTUgMTUuNSBBIDAuNSAxLjUgMCAxIDEgIDE0LDE1LjUgQSAwLjUgMS41IDAgMSAxICAxNSAxNS41IHoiIHRyYW5zZm9ybT0ibWF0cml4KDAuODY2LDAuNSwtMC41LDAuODY2LDkuNjkzLC01LjE3MykiIHN0eWxlPSJmaWxsOiMwMDAwMDA7IHN0cm9rZTojMDAwMDAwOyIvPgo8L2c+Cjwvc3ZnPg==&style=social">
-                </a>
-              </li>
-            {% endif %}
-            {% if user.userprofile.user_instagram_username %}
-              <li>
-                <a href="https://instagram.com/{{ user.userprofile.user_instagram_username }}/">
-                  <img alt="Instagram profile" src="https://img.shields.io/badge/Instagram-ffffff?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzIuMDA0IiBoZWlnaHQ9IjEzMiIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgoJPGRlZnM+CgkJPGxpbmVhckdyYWRpZW50IGlkPSJiIj4KCQkJPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMzc3MWM4Ii8+CgkJCTxzdG9wIHN0b3AtY29sb3I9IiMzNzcxYzgiIG9mZnNldD0iLjEyOCIvPgoJCQk8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM2MGYiIHN0b3Atb3BhY2l0eT0iMCIvPgoJCTwvbGluZWFyR3JhZGllbnQ+CgkJPGxpbmVhckdyYWRpZW50IGlkPSJhIj4KCQkJPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmQ1Ii8+CgkJCTxzdG9wIG9mZnNldD0iLjEiIHN0b3AtY29sb3I9IiNmZDUiLz4KCQkJPHN0b3Agb2Zmc2V0PSIuNSIgc3RvcC1jb2xvcj0iI2ZmNTQzZSIvPgoJCQk8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjODM3YWIiLz4KCQk8L2xpbmVhckdyYWRpZW50PgoJCTxyYWRpYWxHcmFkaWVudCBpZD0iYyIgY3g9IjE1OC40MjkiIGN5PSI1NzguMDg4IiByPSI2NSIgeGxpbms6aHJlZj0iI2EiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDAgLTEuOTgxOTggMS44NDM5IDAgLTEwMzEuNDAyIDQ1NC4wMDQpIiBmeD0iMTU4LjQyOSIgZnk9IjU3OC4wODgiLz4KCQk8cmFkaWFsR3JhZGllbnQgaWQ9ImQiIGN4PSIxNDcuNjk0IiBjeT0iNDczLjQ1NSIgcj0iNjUiIHhsaW5rOmhyZWY9IiNiIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCguMTczOTQgLjg2ODcyIC0zLjU4MTggLjcxNzE4IDE2NDguMzQ4IC00NTguNDkzKSIgZng9IjE0Ny42OTQiIGZ5PSI0NzMuNDU1Ii8+Cgk8L2RlZnM+Cgk8cGF0aCBmaWxsPSJ1cmwoI2MpIiBkPSJNNjUuMDMgMEMzNy44ODggMCAyOS45NS4wMjggMjguNDA3LjE1NmMtNS41Ny40NjMtOS4wMzYgMS4zNC0xMi44MTIgMy4yMi0yLjkxIDEuNDQ1LTUuMjA1IDMuMTItNy40NyA1LjQ2OEM0IDEzLjEyNiAxLjUgMTguMzk0LjU5NSAyNC42NTZjLS40NCAzLjA0LS41NjggMy42Ni0uNTk0IDE5LjE4OC0uMDEgNS4xNzYgMCAxMS45ODggMCAyMS4xMjUgMCAyNy4xMi4wMyAzNS4wNS4xNiAzNi41OS40NSA1LjQyIDEuMyA4LjgzIDMuMSAxMi41NiAzLjQ0IDcuMTQgMTAuMDEgMTIuNSAxNy43NSAxNC41IDIuNjguNjkgNS42NCAxLjA3IDkuNDQgMS4yNSAxLjYxLjA3IDE4LjAyLjEyIDM0LjQ0LjEyIDE2LjQyIDAgMzIuODQtLjAyIDM0LjQxLS4xIDQuNC0uMjA3IDYuOTU1LS41NSA5Ljc4LTEuMjggNy43OS0yLjAxIDE0LjI0LTcuMjkgMTcuNzUtMTQuNTMgMS43NjUtMy42NCAyLjY2LTcuMTggMy4wNjUtMTIuMzE3LjA4OC0xLjEyLjEyNS0xOC45NzcuMTI1LTM2LjgxIDAtMTcuODM2LS4wNC0zNS42Ni0uMTI4LTM2Ljc4LS40MS01LjIyLTEuMzA1LTguNzMtMy4xMjctMTIuNDQtMS40OTUtMy4wMzctMy4xNTUtNS4zMDUtNS41NjUtNy42MjRDMTE2LjkgNCAxMTEuNjQgMS41IDEwNS4zNzIuNTk2IDEwMi4zMzUuMTU3IDEwMS43My4wMjcgODYuMTkgMEg2NS4wM3oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEuMDA0IDEpIi8+Cgk8cGF0aCBmaWxsPSJ1cmwoI2QpIiBkPSJNNjUuMDMgMEMzNy44ODggMCAyOS45NS4wMjggMjguNDA3LjE1NmMtNS41Ny40NjMtOS4wMzYgMS4zNC0xMi44MTIgMy4yMi0yLjkxIDEuNDQ1LTUuMjA1IDMuMTItNy40NyA1LjQ2OEM0IDEzLjEyNiAxLjUgMTguMzk0LjU5NSAyNC42NTZjLS40NCAzLjA0LS41NjggMy42Ni0uNTk0IDE5LjE4OC0uMDEgNS4xNzYgMCAxMS45ODggMCAyMS4xMjUgMCAyNy4xMi4wMyAzNS4wNS4xNiAzNi41OS40NSA1LjQyIDEuMyA4LjgzIDMuMSAxMi41NiAzLjQ0IDcuMTQgMTAuMDEgMTIuNSAxNy43NSAxNC41IDIuNjguNjkgNS42NCAxLjA3IDkuNDQgMS4yNSAxLjYxLjA3IDE4LjAyLjEyIDM0LjQ0LjEyIDE2LjQyIDAgMzIuODQtLjAyIDM0LjQxLS4xIDQuNC0uMjA3IDYuOTU1LS41NSA5Ljc4LTEuMjggNy43OS0yLjAxIDE0LjI0LTcuMjkgMTcuNzUtMTQuNTMgMS43NjUtMy42NCAyLjY2LTcuMTggMy4wNjUtMTIuMzE3LjA4OC0xLjEyLjEyNS0xOC45NzcuMTI1LTM2LjgxIDAtMTcuODM2LS4wNC0zNS42Ni0uMTI4LTM2Ljc4LS40MS01LjIyLTEuMzA1LTguNzMtMy4xMjctMTIuNDQtMS40OTUtMy4wMzctMy4xNTUtNS4zMDUtNS41NjUtNy42MjRDMTE2LjkgNCAxMTEuNjQgMS41IDEwNS4zNzIuNTk2IDEwMi4zMzUuMTU3IDEwMS43My4wMjcgODYuMTkgMEg2NS4wM3oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEuMDA0IDEpIi8+Cgk8cGF0aCBmaWxsPSIjZmZmIiBkPSJNNjYuMDA0IDE4Yy0xMy4wMzYgMC0xNC42NzIuMDU3LTE5Ljc5Mi4yOS01LjExLjIzNC04LjU5OCAxLjA0My0xMS42NSAyLjIzLTMuMTU3IDEuMjI2LTUuODM1IDIuODY2LTguNTAzIDUuNTM1LTIuNjcgMi42NjgtNC4zMSA1LjM0Ni01LjU0IDguNTAyLTEuMTkgMy4wNTMtMiA2LjU0Mi0yLjIzIDExLjY1QzE4LjA2IDUxLjMyNyAxOCA1Mi45NjQgMTggNjZzLjA1OCAxNC42NjcuMjkgMTkuNzg3Yy4yMzUgNS4xMSAxLjA0NCA4LjU5OCAyLjIzIDExLjY1IDEuMjI3IDMuMTU3IDIuODY3IDUuODM1IDUuNTM2IDguNTAzIDIuNjY3IDIuNjcgNS4zNDUgNC4zMTQgOC41IDUuNTQgMy4wNTQgMS4xODcgNi41NDMgMS45OTYgMTEuNjUyIDIuMjMgNS4xMi4yMzMgNi43NTUuMjkgMTkuNzkuMjkgMTMuMDM3IDAgMTQuNjY4LS4wNTcgMTkuNzg4LS4yOSA1LjExLS4yMzQgOC42MDItMS4wNDMgMTEuNjU2LTIuMjMgMy4xNTYtMS4yMjYgNS44My0yLjg3IDguNDk3LTUuNTQgMi42Ny0yLjY2OCA0LjMxLTUuMzQ2IDUuNTQtOC41MDIgMS4xOC0zLjA1MyAxLjk5LTYuNTQyIDIuMjMtMTEuNjUuMjMtNS4xMi4yOS02Ljc1Mi4yOS0xOS43ODggMC0xMy4wMzYtLjA2LTE0LjY3Mi0uMjktMTkuNzkyLS4yNC01LjExLTEuMDUtOC41OTgtMi4yMy0xMS42NS0xLjIzLTMuMTU3LTIuODctNS44MzUtNS41NC04LjUwMy0yLjY3LTIuNjctNS4zNC00LjMxLTguNS01LjUzNS0zLjA2LTEuMTg3LTYuNTUtMS45OTYtMTEuNjYtMi4yMy01LjEyLS4yMzMtNi43NS0uMjktMTkuNzktLjI5em0tNC4zMDYgOC42NWMxLjI3OC0uMDAyIDIuNzA0IDAgNC4zMDYgMCAxMi44MTYgMCAxNC4zMzUuMDQ2IDE5LjM5Ni4yNzYgNC42OC4yMTQgNy4yMi45OTYgOC45MTIgMS42NTMgMi4yNC44NyAzLjgzNyAxLjkxIDUuNTE2IDMuNTkgMS42OCAxLjY4IDIuNzIgMy4yOCAzLjU5MiA1LjUyLjY1NyAxLjY5IDEuNDQgNC4yMyAxLjY1MyA4LjkxLjIzIDUuMDYuMjggNi41OC4yOCAxOS4zOXMtLjA1IDE0LjMzLS4yOCAxOS4zOWMtLjIxNCA0LjY4LS45OTYgNy4yMi0xLjY1MyA4LjkxLS44NyAyLjI0LTEuOTEyIDMuODM1LTMuNTkyIDUuNTE0LTEuNjggMS42OC0zLjI3NSAyLjcyLTUuNTE2IDMuNTktMS42OS42Ni00LjIzMiAxLjQ0LTguOTEyIDEuNjU0LTUuMDYuMjMtNi41OC4yOC0xOS4zOTYuMjgtMTIuODE3IDAtMTQuMzM2LS4wNS0xOS4zOTYtLjI4LTQuNjgtLjIxNi03LjIyLS45OTgtOC45MTMtMS42NTUtMi4yNC0uODctMy44NC0xLjkxLTUuNTItMy41OS0xLjY4LTEuNjgtMi43Mi0zLjI3Ni0zLjU5Mi01LjUxNy0uNjU3LTEuNjktMS40NC00LjIzLTEuNjUzLTguOTEtLjIzLTUuMDYtLjI3Ni02LjU4LS4yNzYtMTkuMzk4cy4wNDYtMTQuMzMuMjc2LTE5LjM5Yy4yMTQtNC42OC45OTYtNy4yMiAxLjY1My04LjkxMi44Ny0yLjI0IDEuOTEyLTMuODQgMy41OTItNS41MiAxLjY4LTEuNjggMy4yOC0yLjcyIDUuNTItMy41OTIgMS42OTItLjY2IDQuMjMzLTEuNDQgOC45MTMtMS42NTUgNC40MjgtLjIgNi4xNDQtLjI2IDE1LjA5LS4yN3ptMjkuOTI4IDcuOTdjLTMuMTggMC01Ljc2IDIuNTc3LTUuNzYgNS43NTggMCAzLjE4IDIuNTggNS43NiA1Ljc2IDUuNzYgMy4xOCAwIDUuNzYtMi41OCA1Ljc2LTUuNzYgMC0zLjE4LTIuNTgtNS43Ni01Ljc2LTUuNzZ6bS0yNS42MjIgNi43M2MtMTMuNjEzIDAtMjQuNjUgMTEuMDM3LTI0LjY1IDI0LjY1IDAgMTMuNjEzIDExLjAzNyAyNC42NDUgMjQuNjUgMjQuNjQ1Qzc5LjYxNyA5MC42NDUgOTAuNjUgNzkuNjEzIDkwLjY1IDY2Uzc5LjYxNiA0MS4zNSA2Ni4wMDMgNDEuMzV6bTAgOC42NWM4LjgzNiAwIDE2IDcuMTYzIDE2IDE2IDAgOC44MzYtNy4xNjQgMTYtMTYgMTYtOC44MzcgMC0xNi03LjE2NC0xNi0xNiAwLTguODM3IDcuMTYzLTE2IDE2LTE2eiIvPgo8L3N2Zz4=">
-                </a>
-              </li>
-            {% endif %}
-            {% if user.userprofile.user_facebook_username %}
-              <li>
-                <a href="https://facebook.com/{{ user.userprofile.user_facebook_username }}/">
-                  <img alt="Facebook profile" src="https://img.shields.io/badge/Facebook-ffffff?logo=facebook">
-                </a>
-              </li>
-            {% endif %}
-            {% if user.userprofile.user_discord_username %}
-              <li>
-                <img alt="Discord profile" src="https://img.shields.io/badge/{{ user.userprofile.user_discord_username|urlencode }}-ffffff?&logo=discord">
-              </li>
-            {% endif %}
-          </ul>
-        </div>
-        </div>
+          <div class="py-2 text-wrap">
+            <h4>CFC Rating: <code>{% if user.userprofile.user_cfc_rating %}{{ user.userprofile.user_cfc_rating }}{% else %}N/A{% endif %}</code></h4>
+            <h4>FIDE Rating: <code>{% if user.userprofile.user_fide_rating %}{{ user.userprofile.user_fide_rating }}{% else %}N/A{% endif %}</code></h4>
+            <h4><u>Lichess Stats</u></h4>
+            <h4><u>Socials</u></h4>
+            <ul class="list-group" style="list-style: none;">
+              {% if user.userprofile.user_github_username %}
+                <li><img alt="GitHub followers" src="https://img.shields.io/github/followers/{{ user.userprofile.user_github_username }}?label=Follow&logo=github&style=social"></li>
+              {% endif %}
+              {% if user.userprofile.user_lichess_username %}
+                <li>
+                  <a href="https://lichess.org/@/{{ user.userprofile.user_lichess_username }}">
+                    <img alt="Lichess profile" src="https://img.shields.io/badge/Lichess-ffffff?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI0NSIgaGVpZ2h0PSI0NSI+CjxnIHN0eWxlPSJvcGFjaXR5OjE7IGZpbGw6bm9uZTsgZmlsbC1vcGFjaXR5OjE7IGZpbGwtcnVsZTpldmVub2RkOyBzdHJva2U6IzAwMDAwMDsgc3Ryb2tlLXdpZHRoOjEuNTsgc3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1taXRlcmxpbWl0OjQ7IHN0cm9rZS1kYXNoYXJyYXk6bm9uZTsgc3Ryb2tlLW9wYWNpdHk6MTsiPgo8cGF0aCBkPSJNIDIyLDEwIEMgMzIuNSwxMSAzOC41LDE4IDM4LDM5IEwgMTUsMzkgQyAxNSwzMCAyNSwzMi41IDIzLDE4IiBzdHlsZT0iZmlsbDojZmZmZmZmOyBzdHJva2U6IzAwMDAwMDsiLz4KPHBhdGggZD0iTSAyNCwxOCBDIDI0LjM4LDIwLjkxIDE4LjQ1LDI1LjM3IDE2LDI3IEMgMTMsMjkgMTMuMTgsMzEuMzQgMTEsMzEgQyA5Ljk1OCwzMC4wNiAxMi40MSwyNy45NiAxMSwyOCBDIDEwLDI4IDExLjE5LDI5LjIzIDEwLDMwIEMgOSwzMCA1Ljk5NywzMSA2LDI2IEMgNiwyNCAxMiwxNCAxMiwxNCBDIDEyLDE0IDEzLjg5LDEyLjEgMTQsMTAuNSBDIDEzLjI3LDkuNTA2IDEzLjUsOC41IDEzLjUsNy41IEMgMTQuNSw2LjUgMTYuNSwxMCAxNi41LDEwIEwgMTguNSwxMCBDIDE4LjUsMTAgMTkuMjgsOC4wMDggMjEsNyBDIDIyLDcgMjIsMTAgMjIsMTAiIHN0eWxlPSJmaWxsOiNmZmZmZmY7IHN0cm9rZTojMDAwMDAwOyIvPgo8cGF0aCBkPSJNIDkuNSAyNS41IEEgMC41IDAuNSAwIDEgMSA4LjUsMjUuNSBBIDAuNSAwLjUgMCAxIDEgOS41IDI1LjUgeiIgc3R5bGU9ImZpbGw6IzAwMDAwMDsgc3Ryb2tlOiMwMDAwMDA7Ii8+CjxwYXRoIGQ9Ik0gMTUgMTUuNSBBIDAuNSAxLjUgMCAxIDEgIDE0LDE1LjUgQSAwLjUgMS41IDAgMSAxICAxNSAxNS41IHoiIHRyYW5zZm9ybT0ibWF0cml4KDAuODY2LDAuNSwtMC41LDAuODY2LDkuNjkzLC01LjE3MykiIHN0eWxlPSJmaWxsOiMwMDAwMDA7IHN0cm9rZTojMDAwMDAwOyIvPgo8L2c+Cjwvc3ZnPg==&style=social">
+                  </a>
+                </li>
+              {% endif %}
+              {% if user.userprofile.user_instagram_username %}
+                <li>
+                  <a href="https://instagram.com/{{ user.userprofile.user_instagram_username }}/">
+                    <img alt="Instagram profile" src="https://img.shields.io/badge/Instagram-ffffff?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzIuMDA0IiBoZWlnaHQ9IjEzMiIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgoJPGRlZnM+CgkJPGxpbmVhckdyYWRpZW50IGlkPSJiIj4KCQkJPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMzc3MWM4Ii8+CgkJCTxzdG9wIHN0b3AtY29sb3I9IiMzNzcxYzgiIG9mZnNldD0iLjEyOCIvPgoJCQk8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM2MGYiIHN0b3Atb3BhY2l0eT0iMCIvPgoJCTwvbGluZWFyR3JhZGllbnQ+CgkJPGxpbmVhckdyYWRpZW50IGlkPSJhIj4KCQkJPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmQ1Ii8+CgkJCTxzdG9wIG9mZnNldD0iLjEiIHN0b3AtY29sb3I9IiNmZDUiLz4KCQkJPHN0b3Agb2Zmc2V0PSIuNSIgc3RvcC1jb2xvcj0iI2ZmNTQzZSIvPgoJCQk8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjODM3YWIiLz4KCQk8L2xpbmVhckdyYWRpZW50PgoJCTxyYWRpYWxHcmFkaWVudCBpZD0iYyIgY3g9IjE1OC40MjkiIGN5PSI1NzguMDg4IiByPSI2NSIgeGxpbms6aHJlZj0iI2EiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDAgLTEuOTgxOTggMS44NDM5IDAgLTEwMzEuNDAyIDQ1NC4wMDQpIiBmeD0iMTU4LjQyOSIgZnk9IjU3OC4wODgiLz4KCQk8cmFkaWFsR3JhZGllbnQgaWQ9ImQiIGN4PSIxNDcuNjk0IiBjeT0iNDczLjQ1NSIgcj0iNjUiIHhsaW5rOmhyZWY9IiNiIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCguMTczOTQgLjg2ODcyIC0zLjU4MTggLjcxNzE4IDE2NDguMzQ4IC00NTguNDkzKSIgZng9IjE0Ny42OTQiIGZ5PSI0NzMuNDU1Ii8+Cgk8L2RlZnM+Cgk8cGF0aCBmaWxsPSJ1cmwoI2MpIiBkPSJNNjUuMDMgMEMzNy44ODggMCAyOS45NS4wMjggMjguNDA3LjE1NmMtNS41Ny40NjMtOS4wMzYgMS4zNC0xMi44MTIgMy4yMi0yLjkxIDEuNDQ1LTUuMjA1IDMuMTItNy40NyA1LjQ2OEM0IDEzLjEyNiAxLjUgMTguMzk0LjU5NSAyNC42NTZjLS40NCAzLjA0LS41NjggMy42Ni0uNTk0IDE5LjE4OC0uMDEgNS4xNzYgMCAxMS45ODggMCAyMS4xMjUgMCAyNy4xMi4wMyAzNS4wNS4xNiAzNi41OS40NSA1LjQyIDEuMyA4LjgzIDMuMSAxMi41NiAzLjQ0IDcuMTQgMTAuMDEgMTIuNSAxNy43NSAxNC41IDIuNjguNjkgNS42NCAxLjA3IDkuNDQgMS4yNSAxLjYxLjA3IDE4LjAyLjEyIDM0LjQ0LjEyIDE2LjQyIDAgMzIuODQtLjAyIDM0LjQxLS4xIDQuNC0uMjA3IDYuOTU1LS41NSA5Ljc4LTEuMjggNy43OS0yLjAxIDE0LjI0LTcuMjkgMTcuNzUtMTQuNTMgMS43NjUtMy42NCAyLjY2LTcuMTggMy4wNjUtMTIuMzE3LjA4OC0xLjEyLjEyNS0xOC45NzcuMTI1LTM2LjgxIDAtMTcuODM2LS4wNC0zNS42Ni0uMTI4LTM2Ljc4LS40MS01LjIyLTEuMzA1LTguNzMtMy4xMjctMTIuNDQtMS40OTUtMy4wMzctMy4xNTUtNS4zMDUtNS41NjUtNy42MjRDMTE2LjkgNCAxMTEuNjQgMS41IDEwNS4zNzIuNTk2IDEwMi4zMzUuMTU3IDEwMS43My4wMjcgODYuMTkgMEg2NS4wM3oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEuMDA0IDEpIi8+Cgk8cGF0aCBmaWxsPSJ1cmwoI2QpIiBkPSJNNjUuMDMgMEMzNy44ODggMCAyOS45NS4wMjggMjguNDA3LjE1NmMtNS41Ny40NjMtOS4wMzYgMS4zNC0xMi44MTIgMy4yMi0yLjkxIDEuNDQ1LTUuMjA1IDMuMTItNy40NyA1LjQ2OEM0IDEzLjEyNiAxLjUgMTguMzk0LjU5NSAyNC42NTZjLS40NCAzLjA0LS41NjggMy42Ni0uNTk0IDE5LjE4OC0uMDEgNS4xNzYgMCAxMS45ODggMCAyMS4xMjUgMCAyNy4xMi4wMyAzNS4wNS4xNiAzNi41OS40NSA1LjQyIDEuMyA4LjgzIDMuMSAxMi41NiAzLjQ0IDcuMTQgMTAuMDEgMTIuNSAxNy43NSAxNC41IDIuNjguNjkgNS42NCAxLjA3IDkuNDQgMS4yNSAxLjYxLjA3IDE4LjAyLjEyIDM0LjQ0LjEyIDE2LjQyIDAgMzIuODQtLjAyIDM0LjQxLS4xIDQuNC0uMjA3IDYuOTU1LS41NSA5Ljc4LTEuMjggNy43OS0yLjAxIDE0LjI0LTcuMjkgMTcuNzUtMTQuNTMgMS43NjUtMy42NCAyLjY2LTcuMTggMy4wNjUtMTIuMzE3LjA4OC0xLjEyLjEyNS0xOC45NzcuMTI1LTM2LjgxIDAtMTcuODM2LS4wNC0zNS42Ni0uMTI4LTM2Ljc4LS40MS01LjIyLTEuMzA1LTguNzMtMy4xMjctMTIuNDQtMS40OTUtMy4wMzctMy4xNTUtNS4zMDUtNS41NjUtNy42MjRDMTE2LjkgNCAxMTEuNjQgMS41IDEwNS4zNzIuNTk2IDEwMi4zMzUuMTU3IDEwMS43My4wMjcgODYuMTkgMEg2NS4wM3oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEuMDA0IDEpIi8+Cgk8cGF0aCBmaWxsPSIjZmZmIiBkPSJNNjYuMDA0IDE4Yy0xMy4wMzYgMC0xNC42NzIuMDU3LTE5Ljc5Mi4yOS01LjExLjIzNC04LjU5OCAxLjA0My0xMS42NSAyLjIzLTMuMTU3IDEuMjI2LTUuODM1IDIuODY2LTguNTAzIDUuNTM1LTIuNjcgMi42NjgtNC4zMSA1LjM0Ni01LjU0IDguNTAyLTEuMTkgMy4wNTMtMiA2LjU0Mi0yLjIzIDExLjY1QzE4LjA2IDUxLjMyNyAxOCA1Mi45NjQgMTggNjZzLjA1OCAxNC42NjcuMjkgMTkuNzg3Yy4yMzUgNS4xMSAxLjA0NCA4LjU5OCAyLjIzIDExLjY1IDEuMjI3IDMuMTU3IDIuODY3IDUuODM1IDUuNTM2IDguNTAzIDIuNjY3IDIuNjcgNS4zNDUgNC4zMTQgOC41IDUuNTQgMy4wNTQgMS4xODcgNi41NDMgMS45OTYgMTEuNjUyIDIuMjMgNS4xMi4yMzMgNi43NTUuMjkgMTkuNzkuMjkgMTMuMDM3IDAgMTQuNjY4LS4wNTcgMTkuNzg4LS4yOSA1LjExLS4yMzQgOC42MDItMS4wNDMgMTEuNjU2LTIuMjMgMy4xNTYtMS4yMjYgNS44My0yLjg3IDguNDk3LTUuNTQgMi42Ny0yLjY2OCA0LjMxLTUuMzQ2IDUuNTQtOC41MDIgMS4xOC0zLjA1MyAxLjk5LTYuNTQyIDIuMjMtMTEuNjUuMjMtNS4xMi4yOS02Ljc1Mi4yOS0xOS43ODggMC0xMy4wMzYtLjA2LTE0LjY3Mi0uMjktMTkuNzkyLS4yNC01LjExLTEuMDUtOC41OTgtMi4yMy0xMS42NS0xLjIzLTMuMTU3LTIuODctNS44MzUtNS41NC04LjUwMy0yLjY3LTIuNjctNS4zNC00LjMxLTguNS01LjUzNS0zLjA2LTEuMTg3LTYuNTUtMS45OTYtMTEuNjYtMi4yMy01LjEyLS4yMzMtNi43NS0uMjktMTkuNzktLjI5em0tNC4zMDYgOC42NWMxLjI3OC0uMDAyIDIuNzA0IDAgNC4zMDYgMCAxMi44MTYgMCAxNC4zMzUuMDQ2IDE5LjM5Ni4yNzYgNC42OC4yMTQgNy4yMi45OTYgOC45MTIgMS42NTMgMi4yNC44NyAzLjgzNyAxLjkxIDUuNTE2IDMuNTkgMS42OCAxLjY4IDIuNzIgMy4yOCAzLjU5MiA1LjUyLjY1NyAxLjY5IDEuNDQgNC4yMyAxLjY1MyA4LjkxLjIzIDUuMDYuMjggNi41OC4yOCAxOS4zOXMtLjA1IDE0LjMzLS4yOCAxOS4zOWMtLjIxNCA0LjY4LS45OTYgNy4yMi0xLjY1MyA4LjkxLS44NyAyLjI0LTEuOTEyIDMuODM1LTMuNTkyIDUuNTE0LTEuNjggMS42OC0zLjI3NSAyLjcyLTUuNTE2IDMuNTktMS42OS42Ni00LjIzMiAxLjQ0LTguOTEyIDEuNjU0LTUuMDYuMjMtNi41OC4yOC0xOS4zOTYuMjgtMTIuODE3IDAtMTQuMzM2LS4wNS0xOS4zOTYtLjI4LTQuNjgtLjIxNi03LjIyLS45OTgtOC45MTMtMS42NTUtMi4yNC0uODctMy44NC0xLjkxLTUuNTItMy41OS0xLjY4LTEuNjgtMi43Mi0zLjI3Ni0zLjU5Mi01LjUxNy0uNjU3LTEuNjktMS40NC00LjIzLTEuNjUzLTguOTEtLjIzLTUuMDYtLjI3Ni02LjU4LS4yNzYtMTkuMzk4cy4wNDYtMTQuMzMuMjc2LTE5LjM5Yy4yMTQtNC42OC45OTYtNy4yMiAxLjY1My04LjkxMi44Ny0yLjI0IDEuOTEyLTMuODQgMy41OTItNS41MiAxLjY4LTEuNjggMy4yOC0yLjcyIDUuNTItMy41OTIgMS42OTItLjY2IDQuMjMzLTEuNDQgOC45MTMtMS42NTUgNC40MjgtLjIgNi4xNDQtLjI2IDE1LjA5LS4yN3ptMjkuOTI4IDcuOTdjLTMuMTggMC01Ljc2IDIuNTc3LTUuNzYgNS43NTggMCAzLjE4IDIuNTggNS43NiA1Ljc2IDUuNzYgMy4xOCAwIDUuNzYtMi41OCA1Ljc2LTUuNzYgMC0zLjE4LTIuNTgtNS43Ni01Ljc2LTUuNzZ6bS0yNS42MjIgNi43M2MtMTMuNjEzIDAtMjQuNjUgMTEuMDM3LTI0LjY1IDI0LjY1IDAgMTMuNjEzIDExLjAzNyAyNC42NDUgMjQuNjUgMjQuNjQ1Qzc5LjYxNyA5MC42NDUgOTAuNjUgNzkuNjEzIDkwLjY1IDY2Uzc5LjYxNiA0MS4zNSA2Ni4wMDMgNDEuMzV6bTAgOC42NWM4LjgzNiAwIDE2IDcuMTYzIDE2IDE2IDAgOC44MzYtNy4xNjQgMTYtMTYgMTYtOC44MzcgMC0xNi03LjE2NC0xNi0xNiAwLTguODM3IDcuMTYzLTE2IDE2LTE2eiIvPgo8L3N2Zz4=">
+                  </a>
+                </li>
+              {% endif %}
+              {% if user.userprofile.user_facebook_username %}
+                <li>
+                  <a href="https://facebook.com/{{ user.userprofile.user_facebook_username }}/">
+                    <img alt="Facebook profile" src="https://img.shields.io/badge/Facebook-ffffff?logo=facebook">
+                  </a>
+                </li>
+              {% endif %}
+              {% if user.userprofile.user_discord_username %}
+                <li>
+                  <img alt="Discord profile" src="https://img.shields.io/badge/{{ user.userprofile.user_discord_username|urlencode }}-ffffff?&logo=discord">
+                </li>
+              {% endif %}
+            </ul>
+          </div>
       </div>
       <div class="flex-shrink-0 col-12 col-md-8 mb-4 mb-md-0">
         {% if user.userprofile.user_bio %}
@@ -63,8 +63,8 @@ hljs.highlightAll();
           </div>
         {% else %}
           <div class="rounded-3 border border-2 p-3">
-            <h4>A desolate board</h4>
-            <p class="h5">{{ user.username }} is shrouded in a cloak of mystery...</p>
+            <h4>Bio</h4>
+            <p class="h5 text-wrap text-break">{{ user.username }} is shrouded in a cloak of mystery...</p>
             <div class="py-2">
               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Knight-chess.jpg/1920px-Knight-chess.jpg" class="shadow rounded-3 img-fluid" alt="">
             </div>

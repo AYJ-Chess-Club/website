@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -18,6 +19,7 @@ from .models import addAnnouncement, addLesson
 
 
 # Create your views here.
+@login_required()
 def Dashboard(request):
     all_users = get_user_model().objects.all()
     username = request.user.username

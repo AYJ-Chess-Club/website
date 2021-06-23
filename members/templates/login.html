@@ -28,6 +28,7 @@
       <label for="floatingPassword">Password</label>
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+    <input type="hidden" name="next" value="{{ request.GET.next }}" />
     <div class="py-3">
       <span>Want to sign up? </span><a href="{% url 'register' %}">Join!</a>
       <br>
