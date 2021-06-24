@@ -1,4 +1,6 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -83,14 +85,15 @@ class DeleteAnnouncementView(SuccessMessageMixin, DeleteView):
         return reverse("admin-dashboard")
 
 
+@login_required()
 def LessonLandingPage(request):
     return render(request, "lessons/lesson_difficulty.html")
 
 
+@login_required()
 def LessonDisplayView(request, diff):
     diff_original = diff.capitalize()
     diff_lessons = addLesson.objects.filter(difficulty=diff_original)
-    print(diff_lessons)
     return render(
         request,
         "lessons/lesson.html",
@@ -105,7 +108,7 @@ class AddLessonView(SuccessMessageMixin, CreateView):
     success_message = "Your lessons was posted successfully"
 
 
-class LessonDetailView(DetailView):
+class LessonDetailView(LoginRequiredMixin, DetailView):
     model = addLesson
     template_name = "lessons/lesson_detail_view.html"
 

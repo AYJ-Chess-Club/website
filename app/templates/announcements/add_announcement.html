@@ -10,6 +10,11 @@
   {{ form.media }}
   <button class="btn btn-primary">Post</button>
 </form>
+<script>
+  let name = "{{ user.id }}"
+  console.log(name)
+  document.getElementById("author_field").value = name;
+</script>
 {% else %}
 <div class="container py-5 text-center">
   <h1>You have no power here... Checkmate!</h1>

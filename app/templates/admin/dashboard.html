@@ -27,33 +27,33 @@
 </pre>
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link active bg-transparent" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" role="tab" aria-controls="docs" aria-selected="true">Users list</a>
+      <a class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" role="tab" aria-controls="docs" aria-selected="true">Users list</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link bg-transparent" id="docs-tab" data-bs-toggle="tab" data-bs-target="#docs" role="tab" aria-controls="docs" aria-selected="false">Docs</a>
+      <a class="nav-link" id="docs-tab" data-bs-toggle="tab" data-bs-target="#docs" role="tab" aria-controls="docs" aria-selected="false">Docs</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link bg-transparent" id="getting-started-tab" data-bs-toggle="tab" data-bs-target="#getting-started" role="tab" aria-controls="getting-started" aria-selected="false">Get Started</a>
+      <a class="nav-link" id="getting-started-tab" data-bs-toggle="tab" data-bs-target="#getting-started" role="tab" aria-controls="getting-started" aria-selected="false">Get Started</a>
     </li>
   </ul>
   <div class="tab-content" id="tabContent">
-    <div class="tab-pane fade bg-transparent show active" id="users" role="tabpanel" aria-labelledby="users-tab">
+    <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
       <div class="list-group py-2">
         {% for user in all_users %}
-        <a href="#" class="list-group-item list-group-item-action">{% if user|in_group:"execs" %}{{ user.username }}  <i class="bi bi-shield-shaded"></i> {% else %} {{ user.username }} {% endif %}</a>
+        <a href="{% url 'show-profile' user.username %}" class="users-list-group-item list-group-item list-group-item-action">{% if user|in_group:"execs" %}{{ user.username }}  <i class="bi bi-shield-shaded"></i> {% else %} {{ user.username }} {% endif %}</a>
         {% endfor %}
       </div>
       <div class="py-2">
         <ul class="pagination">
           {% if all_users.has_previous %}
           <li class="page-item">
-            <a class="page-link" href="?page={{ all_users.previous_page_number }}#users-tab" aria-label="Previous">
+            <a class="paginator-page-link-active page-link" href="?page={{ all_users.previous_page_number }}#users-tab" aria-label="Previous">
             <span>&laquo;</span>
             </a>
           </li>
           {% else %}
           <li class="disabled page-item">
-            <a class="disabled page-link" href="" aria-label="Previous">
+            <a class="paginator-page-link disabled page-link" href="" aria-label="Previous">
             <span>&laquo;</span>
             </a>
           </li>
@@ -62,18 +62,18 @@
           {% if all_users.number == i %}
           <li class="page-item active"><a class="page-link active" href="?page={{ i }}#users-tab">{{ i }}</a></li>
           {% else %}
-          <li class="page-item"><a class="page-link" href="?page={{ i }}#users-tab">{{ i }}</a></li>
+          <li class="page-item"><a class="paginator-page-link page-link" href="?page={{ i }}#users-tab">{{ i }}</a></li>
           {% endif %}
           {% endfor %}
           {% if all_users.has_next %}
           <li class="page-item">
-            <a class="page-link" href="?page={{ all_users.next_page_number }}#users-tab" aria-label="Next">
+            <a class="paginator-page-link-active page-link" href="?page={{ all_users.next_page_number }}#users-tab" aria-label="Next">
             <span>&raquo;</span>
             </a>
           </li>
           {% else %}
           <li class="disabled page-item">
-            <a class="disabled page-link" href="" aria-label="Previous">
+            <a class="paginator-page-link disabled page-link" href="" aria-label="Previous">
             <span>&raquo;</span>
             </a>
             {% endif %}

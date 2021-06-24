@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load auth_extras %}
+{% block title %}All users | AYJ Chess Club{% endblock title %}
+{% block content %}
+<div class="container py-3">
+  <h1>Users</h1>
+  <h5><i class="bi bi-shield-shaded"></i> denotes that the user is an admin</h5>
+  <hr>
+  <div class="list-group py-2">
+    {% for user in all_users %}
+    <a href=" {% url 'show-profile' user.username %} " class="users-list-group-item list-group-item list-group-item-action">{% if user|in_group:"execs" %}{{ user.username }}  <i class="bi bi-shield-shaded"></i> {% else %} {{ user.username }} {% endif %}</a>
+    {% endfor %}
+  </div>
+  <div class="py-2">
+    <ul class="pagination">
+      {% if all_users.has_previous %}
+      <li class="page-item">
+        <a class="paginator-page-link-active page-link" href="?page={{ all_users.previous_page_number }}" aria-label="Previous">
+        <span>&laquo;</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="disabled page-item">
+        <a class="paginator-page-link disabled page-link" href="" aria-label="Previous">
+        <span>&laquo;</span>
+        </a>
+      </li>
+      {% endif %}
+      {% for i in all_users.paginator.page_range %}
+      {% if all_users.number == i %}
+      <li class="page-item active"><a class="page-link active" href="?page={{ i }}">{{ i }}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if all_users.has_next %}
+      <li class="page-item">
+        <a class="page-link paginator-page-link-active" href="?page={{ all_users.next_page_number }}" aria-label="Next">
+        <span>&raquo;</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="disabled page-item">
+        <a class="disabled page-link paginator-page-link" href="" aria-label="Previous">
+        <span>&raquo;</span>
+        </a>
+        {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

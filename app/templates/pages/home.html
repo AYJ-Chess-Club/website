@@ -3,7 +3,7 @@
 {% block title %}{% endblock %}
 {% block content %}
 <h1 class="display-1 text-center py-2">Welcome to <span style="color: #FF4500;">AYJ's</span> Chess Club!</h1>
-{% if user.is_authenticated %}
+{% if request.user.is_authenticated %}
 <div class="container px-4 py-2">
 <hr>
 {% else %}
