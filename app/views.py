@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
@@ -19,7 +20,6 @@ from .models import addAnnouncement, addLesson
 
 
 # Create your views here.
-@login_required()
 def Dashboard(request):
     all_users = get_user_model().objects.all()
     username = request.user.username
@@ -84,11 +84,11 @@ class DeleteAnnouncementView(SuccessMessageMixin, DeleteView):
         messages.success(self.request, "The announcement was successfully deleted")
         return reverse("admin-dashboard")
 
-
+@login_required()
 def LessonLandingPage(request):
     return render(request, "lessons/lesson_difficulty.html")
 
-
+@login_required()
 def LessonDisplayView(request, diff):
     diff_original = diff.capitalize()
     diff_lessons = addLesson.objects.filter(difficulty=diff_original)
@@ -106,7 +106,7 @@ class AddLessonView(SuccessMessageMixin, CreateView):
     success_message = "Your lessons was posted successfully"
 
 
-class LessonDetailView(DetailView):
+class LessonDetailView(LoginRequiredMixin, DetailView):
     model = addLesson
     template_name = "lessons/lesson_detail_view.html"
 
