@@ -84,9 +84,11 @@ class DeleteAnnouncementView(SuccessMessageMixin, DeleteView):
         messages.success(self.request, "The announcement was successfully deleted")
         return reverse("admin-dashboard")
 
+
 @login_required()
 def LessonLandingPage(request):
     return render(request, "lessons/lesson_difficulty.html")
+
 
 @login_required()
 def LessonDisplayView(request, diff):

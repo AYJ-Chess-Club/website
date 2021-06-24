@@ -101,6 +101,7 @@ def logout_request(request):
     messages.success(request, "Successfully logged out.")
     return redirect("/")
 
+
 @login_required()
 def view_profile(request):
     identicon_data = requests.get(
@@ -127,6 +128,7 @@ class ShowProfileView(DetailView):
         context["identicon_data"] = identicon_data
         return context
 
+
 @login_required()
 def edit_profile_view(request):
     if request.method == "POST":
@@ -135,12 +137,13 @@ def edit_profile_view(request):
             profile_form.save()
             messages.success(request, "Your profile was updated successfully.")
             return redirect("profile")
-    
+
     else:
         profile_form = EditProfileForm(instance=request.user)
-    
+
     context = {"form": profile_form}
     return render(request, "edit_profile.html", context)
+
 
 # class EditProfileView(SuccessMessageMixin, UpdateView):
 #     model = UserProfile

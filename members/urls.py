@@ -12,7 +12,5 @@ urlpatterns = [
         "profile/<str:username>/view/", ShowProfileView.as_view(), name="show-profile"
     ),
     path("users/all/", views.all_users_view, name="all-users"),
-    path(
-        "profile/edit/", views.edit_profile_view, name="edit-profile"
-    ),
+    path("profile/edit/", views.edit_profile_view, name="edit-profile"),
 ]
