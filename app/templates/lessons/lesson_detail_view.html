@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load auth_extras %}
+{% block title %}{{ addlesson.title | safe | striptags }}{% endblock %}
 {% block js %}
 <script>
   const goBack = () => {

@@ -7,6 +7,7 @@ from .views import (
     LessonDetailView,
     LessonDisplayView,
     LessonLandingPage,
+    events_page,
     UpdateAnnouncementView,
     AddLessonView,
     UpdateLessonView,
@@ -49,4 +50,5 @@ urlpatterns = [
         DeleteLessonView.as_view(),
         name="delete-lesson",
     ),
+    path("events/", events_page, name="events-page"),
 ]

@@ -127,3 +127,8 @@ class DeleteLessonView(SuccessMessageMixin, DeleteView):
     def get_success_url(self):
         messages.success(self.request, "The lesson was successfully deleted")
         return reverse("admin-dashboard")
+
+
+@login_required()
+def events_page(request):
+    return render(request, "pages/events.html")
