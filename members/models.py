@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from django.db.models.signals import post_save
 from django.db.models.fields import CharField, IntegerField
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -9,10 +10,12 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     user_profile_pic = CharField(max_length=10000, blank=True)
     user_cfc_rating = IntegerField(
-        default=None, validators=[MinValueValidator(0), MaxValueValidator(3500)]
+        validators=[MinValueValidator(0), MaxValueValidator(3500)],
+        null=True,
     )
     user_fide_rating = IntegerField(
-        default=None, validators=[MinValueValidator(0), MaxValueValidator(3500)]
+        validators=[MinValueValidator(0), MaxValueValidator(3500)],
+        null=True,
     )
     user_website_username = CharField(max_length=10000, blank=True)
     user_github_username = CharField(max_length=10000, blank=True)
@@ -24,3 +27,11 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+
+post_save.connect(create_user_profile, sender=User)

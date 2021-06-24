@@ -48,7 +48,14 @@ def register(request):
                 request,
                 "Your account was created, please check your email to activate it.",
             )
-            return render(request, "register.html")
+            return redirect("login")
+        else:
+            messages.error(
+                request,
+                "The information you have filled out conflicts with another account. Please change it.",
+            )
+            return redirect("register")
+
     else:
         form = RegisterForm()
     return render(request, "register.html", {"form": form})
