@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="card-footer bg-transparent text-start border-top">
-          <a href="">
+          <a href="{% url 'register' %}">
           <button class="btn btn-primary">Sign Up</button>
           </a>
         </div>
@@ -64,7 +64,7 @@
           </div>
         </div>
         <div class="card-footer bg-transparent text-start border-top">
-          <a href="">
+          <a href="{% url 'login' %}">
           <button class="btn btn-primary">Start now!</button>
           </a>
         </div>
@@ -102,13 +102,13 @@
     <ul class="pagination">
       {% if page_obj.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}#announcements" aria-label="Previous">
+        <a class="paginator-page-link-active page-link" href="?page={{ page_obj.previous_page_number }}#announcements" aria-label="Previous">
         <span>&laquo;</span>
         </a>
       </li>
       {% else %}
       <li class="disabled page-item">
-        <a class="disabled page-link" href="" aria-label="Previous">
+        <a class="paginator-page-link disabled page-link" href="" aria-label="Previous">
         <span>&laquo;</span>
         </a>
       </li>
@@ -117,18 +117,18 @@
       {% if page_obj.number == i %}
       <li class="page-item active"><a class="page-link active" href="?page={{ i }}#announcements">{{ i }}</a></li>
       {% else %}
-      <li class="page-item"><a class="page-link" href="?page={{ i }}#announcements">{{ i }}</a></li>
+      <li class="page-item"><a class="paginator-page-link page-link" href="?page={{ i }}#announcements">{{ i }}</a></li>
       {% endif %}
       {% endfor %}
       {% if page_obj.has_next %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.next_page_number }}#announcements" aria-label="Next">
+        <a class="paginator-page-link-active page-link" href="?page={{ page_obj.next_page_number }}#announcements" aria-label="Next">
         <span>&raquo;</span>
         </a>
       </li>
       {% else %}
       <li class="disabled page-item">
-        <a class="disabled page-link" href="" aria-label="Previous">
+        <a class="disabled paginator-page-link page-link" href="" aria-label="Previous">
         <span>&raquo;</span>
         </a>
         {% endif %}

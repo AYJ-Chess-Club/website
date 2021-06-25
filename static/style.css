@@ -1,5 +1,33 @@
 /*
 *
+*  Basic styles
+*
+*/
+
+blockquote {
+  margin: 0;
+  padding-left: 1.4rem;
+  position: relative;
+}
+blockquote::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #dadada;
+  border-radius: 2px / 4px;
+}
+
+.divider {
+  height: 5rem;
+  /*background-color: 	#FF8C00;*/
+  background-color: #ff9f29;
+  border-width: 1px 0;
+}
+
+/*
+*
 *  Theming
 *
 */

@@ -33,7 +33,7 @@
           <a class="nav-link" href="{% url 'lesson-page' %}">Lessons</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}">Resources</a>
+          <a class="nav-link" href="{% url 'about-page' %}">About</a>
         </li>
         {% if request.user|in_group:"execs" %}
         <li class="nav-item">

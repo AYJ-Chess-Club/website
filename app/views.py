@@ -132,3 +132,7 @@ class DeleteLessonView(SuccessMessageMixin, DeleteView):
 @login_required()
 def events_page(request):
     return render(request, "pages/events.html")
+
+
+def about_page(request):
+    return render(request, "pages/about.html")
