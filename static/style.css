@@ -1,0 +1,87 @@
+/*
+*
+*  Basic styles
+*
+*/
+
+blockquote {
+  margin: 0;
+  padding-left: 1.4rem;
+  position: relative;
+}
+blockquote::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #dadada;
+  border-radius: 2px / 4px;
+}
+
+.divider {
+  height: 5rem;
+  /*background-color: 	#FF8C00;*/
+  background-color: #ff9f29;
+  border-width: 1px 0;
+}
+
+/*
+*
+*  Theming
+*
+*/
+.dark {
+  background-color: #111;
+  background: #111;
+  color: #fff;
+}
+
+.toggle-theme:checked {
+  background-color: #333;
+}
+
+.dark-navbar {
+  background-color: #1266F1;
+  background: #1266F1
+}
+
+.footer {
+  background-color: #f8f9fa;
+}
+
+.dark-footer {
+  background-color: #222;
+}
+
+nav {
+  background-color: #111;
+}
+
+#signup-btn {
+  background: transparent;
+  color: deepskyblue;
+}
+
+#login-btn {
+  background: transparent;
+  color: deepskyblue;
+}
+
+#logout-btn {
+  background: transparent;
+  color: deepskyblue;
+}
+
+#fancy-sudo {
+  background-color: #F0F0F0;
+}
+
+.dark-fancy-sudo {
+  color: #abb2bf!important;
+  background-color: #282c34!important;
+}
+
+.dark-auth-buttons {
+  color: #fff!important;
+}

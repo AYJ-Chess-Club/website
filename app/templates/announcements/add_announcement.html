@@ -1,0 +1,26 @@
+{% extends 'admin/layout.html' %}
+{% load auth_extras %}
+{% block title %}{% if request.user|in_group:"execs" %}Add Announcement{% else %}Error{% endif %}{% endblock %}
+{% block content %}
+{% if request.user|in_group:"execs" %}
+<h1>Add announcement</h1>
+<form action="" method="POST" class="form-group p-4 border rounded-3 bg-light text-dark">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {{ form.media }}
+  <button class="btn btn-primary">Post</button>
+</form>
+<script>
+  let name = "{{ user.id }}"
+  console.log(name)
+  document.getElementById("author_field").value = name;
+</script>
+{% else %}
+<div class="container py-5 text-center">
+  <h1>You have no power here... Checkmate!</h1>
+  <div class="py-5">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/CheckmateProper.jpg" alt="" height="300" class="rounded-3">
+  </div>
+</div>
+{% endif %}
+{% endblock %}

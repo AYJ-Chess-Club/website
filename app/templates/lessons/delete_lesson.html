@@ -1,0 +1,39 @@
+{% extends 'admin/layout.html' %}
+{% load auth_extras %}
+{% block title %}{% if request.user|in_group:"execs" %}Delete Lesson{% else %}Error{% endif %}{% endblock %}
+{% block content %}
+{% if request.user|in_group:"execs" %}
+<h1>Delete: <code>{{ addlesson.title }}</code></h1>
+<br>
+<form action="" method="POST" class="form-group">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {{ form.media }}
+  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+  Delete Lesson
+  </button>
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog text-dark">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Confirm Delete</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">This is permanent. Do you really want to delete <code>{{ addlesson.title }}</code>?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+{% else %}
+<div class="container py-5 text-center">
+  <h1>You have no power here... Checkmate!</h1>
+  <div class="py-5">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/CheckmateProper.jpg" alt="" height="300" class="rounded-3">
+  </div>
+</div>
+{% endif %}
+{% endblock %}

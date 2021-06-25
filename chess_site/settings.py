@@ -1,6 +1,7 @@
 import os
 import dotenv
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,6 +33,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "app",
+    "members",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -100,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "EST"
 
 USE_I18N = True
 
@@ -113,11 +116,86 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static/"),)
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
 
+# Django Messages
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# CKEDITOR
+CKEDITOR_CONFIGS = {
+    "default": {
+        "allowedContent": True,
+        "toolbar": "Custom",
+        "toolbar_Custom": [
+            ["Styles", "Format", "Font", "FontSize", "CodeSnippet"],
+            [
+                "Bold",
+                "Italic",
+                "Underline",
+                "Strike",
+                "-",
+                "Undo",
+                "Redo",
+                "-",
+                "Cut",
+                "Copy",
+                "Paste",
+                "Find",
+                "Replace",
+                "-",
+                "Outdent",
+                "Indent",
+                "-",
+                "Print",
+            ],
+            [
+                "NumberedList",
+                "BulletedList",
+                "-",
+                "JustifyLeft",
+                "JustifyCenter",
+                "JustifyRight",
+                "JustifyBlock",
+            ],
+            [
+                "Image",
+                "Table",
+                "-",
+                "Link",
+                "Flash",
+                "Smiley",
+                "TextColor",
+                "BGColor",
+                "Source",
+            ],
+        ],
+        "height": 600,
+        "width": "auto",
+        "extraPlugins": ",".join(["codesnippet"]),
+    },
+}
+
+# SMTP
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+MAILER_EMAIL_BACKEND = EMAIL_BACKEND
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# AUTH
+LOGIN_URL = "/members/login/"
