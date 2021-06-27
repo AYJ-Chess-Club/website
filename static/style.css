@@ -26,6 +26,11 @@ blockquote::before {
   border-width: 1px 0;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 /*
 *
 *  Theming

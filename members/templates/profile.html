@@ -58,7 +58,10 @@ hljs.highlightAll();
       <div class="flex-shrink-0 col-12 col-md-8 mb-4 mb-md-0">
         {% if user.userprofile.user_bio %}
           <div class="rounded-3 border border-2 p-3">
-            <h4>Bio</h4>
+            <div class="d-flex">
+              <div class="h3 flex-grow-1">Bio</div>
+              <a href="{% url 'edit-profile' %}" class="px-2"><i class="bi bi-pencil"></i></a>
+            </div>
             <p>{{ user.userprofile.user_bio|safe }}</p>
           </div>
         {% else %}

@@ -1,16 +1,16 @@
 Hi {{ user.username }},
 <br>
 <br>
-We've received an account creation request from your email.
+You're receiving this email because you requested a password reset for your user account.
 <br>
 <br>
-To confirm your registration, click on the following link:
+To confirm your request, click on the following link:
 <br>
 <br>
-https://{{ domain }}{% url 'confirm-account' uidb64=uid token=token %}
+http://{{ domain }}{% url 'reset-password-confirm' uidb64=uid token=token %}
 <br>
 <br>
-If you have not requested an account on our website, please ignore this email.
+If you have not requested a password change on our website, please ignore this email.
 <br>
 <br>
 <br>

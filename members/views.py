@@ -52,7 +52,7 @@ def register(request):
         else:
             messages.error(
                 request,
-                "The information you have filled out conflicts with another account. Please change it.",
+                "Please ensure that all fields are filled out correctly. If there is still an error, your username may be in conflict with another user.",
             )
             return redirect("register")
 
@@ -108,6 +108,71 @@ def logout_request(request):
     messages.success(request, "Successfully logged out.")
     return redirect("/")
 
+def forgot_password(request):
+    if request.method == "POST":
+        current_site = get_current_site(request)
+        _username = request.POST.get("_username")
+        _email = request.POST.get("_email")
+        user = User.objects.get(username__exact=_username)
+        if _username and _email:
+            try:
+                mail_subject = "AYJ Chess Club password reset"
+                message = render_to_string(
+                    "reset_email.html",
+                    {
+                        "user": user,
+                        "domain": current_site.domain,
+                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                        "token": default_token_generator.make_token(user),
+                    },
+                )
+                email = EmailMessage(mail_subject, message, to=[_email])
+                email.content_subtype = "html"
+                email.send()
+                messages.success(
+                    request,
+                    "An email has been sent to your account's email. Further instructions have been included.",
+                )
+                return redirect("forgot-password")
+            except Exception as e:
+                messages.success(
+                    request,
+                    f"Error: {e}",
+                )
+                return redirect("forgot-password")
+
+    else:
+        return render(request, "password_reset.html")
+    return render(request, "password_reset.html")
+
+def reset_password_confirm(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = UserModel._default_manager.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and default_token_generator.check_token(user, token):
+        if request.method == "POST":
+            new_password = request.POST.get("_password")
+            print(new_password)
+            new_password_confirm = request.POST.get("_confirm_password")
+            print(new_password_confirm)
+            if new_password == new_password_confirm:
+                user.set_password(new_password_confirm)
+                user.save()
+                print(user)
+                print(new_password, new_password_confirm)
+                messages.success(
+                    request, "Your password was successfully reset."
+                )
+                return redirect("login")
+    else:
+        messages.error(request, "Sorry, that reset link is invalid!")
+        return redirect("home")
+    context = {"uidb64": uidb64, "token": token}
+    return render(request, "reset_form.html", context)
+
+
 
 @login_required()
 def view_profile(request):
@@ -144,25 +209,18 @@ def edit_profile_view(request):
             profile_form.save()
             messages.success(request, "Your profile was updated successfully.")
             return redirect("profile")
+        else:
+            messages.error(
+                request,
+                "Please ensure that the CFC and FIDE rating is filled out properly.",
+            )
+            return redirect("edit-profile")
 
     else:
         profile_form = EditProfileForm(instance=request.user)
 
     context = {"form": profile_form}
     return render(request, "edit_profile.html", context)
-
-
-# class EditProfileView(SuccessMessageMixin, UpdateView):
-#     model = UserProfile
-#     template_name = "edit_profile.html"
-#     form_class = EditProfileForm
-#     queryset = User.objects.all()
-#     success_message = "Your profile was updated successfully."
-#     success_url = reverse_lazy("profile")
-
-#     def get_object(self):
-#         username_object = get_object_or_404(User, username=self.kwargs.get("username"))
-#         return username_object
 
 
 def all_users_view(request):

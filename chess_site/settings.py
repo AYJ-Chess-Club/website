@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "app",
     "members",
     "ckeditor",
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -117,7 +118,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
 
 # Django Messages
 MESSAGE_TAGS = {
@@ -199,3 +200,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # AUTH
 LOGIN_URL = "/members/login/"
+
+# Crispy forms
+CRISPY_TEMPLATE_PACK = "bootstrap4"
