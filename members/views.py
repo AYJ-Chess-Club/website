@@ -14,6 +14,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
 
 UserModel = get_user_model()
@@ -154,14 +155,10 @@ def reset_password_confirm(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         if request.method == "POST":
             new_password = request.POST.get("_password")
-            print(new_password)
             new_password_confirm = request.POST.get("_confirm_password")
-            print(new_password_confirm)
             if new_password == new_password_confirm:
                 user.set_password(new_password_confirm)
                 user.save()
-                print(user)
-                print(new_password, new_password_confirm)
                 messages.success(
                     request, "Your password was successfully reset."
                 )
@@ -172,7 +169,32 @@ def reset_password_confirm(request, uidb64, token):
     context = {"uidb64": uidb64, "token": token}
     return render(request, "reset_form.html", context)
 
+@login_required()
+def change_password(request):
+    if request.method == "POST":
+        user = request.user
+        current_password = request.POST.get("current_password")
+        new_password = request.POST.get("new_password")
 
+        is_valid_password = user.check_password(current_password)
+
+        if is_valid_password:
+            user.set_password(new_password)
+            user.save()
+            update_session_auth_hash(request, user)
+            messages.success(
+                request,
+                "Your password has been changed successfully."
+            )
+            return redirect("home")
+        else:
+            messages.error(
+                request,
+                "Your input does not match your current password. Please try again."
+            )
+            return redirect("change-password")
+
+    return render(request, "change_password.html")
 
 @login_required()
 def view_profile(request):
