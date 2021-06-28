@@ -26,7 +26,7 @@ def register(request):
 
     if request.method == "POST":
         form = RegisterForm(request.POST)
-        if form.is_valid():
+        try:
             user = form.save(commit=False)
             user.is_active = False
             user.save()
@@ -50,10 +50,10 @@ def register(request):
                 "Your account was created, please check your email to activate it.",
             )
             return redirect("login")
-        else:
+        except Exception as e:
             messages.error(
                 request,
-                "Please ensure that all fields are filled out correctly. If there is still an error, your username may be in conflict with another user.",
+                f"Please ensure that all credentials were filled in properly. Error: {e}",
             )
             return redirect("register")
 
@@ -109,6 +109,7 @@ def logout_request(request):
     messages.success(request, "Successfully logged out.")
     return redirect("/")
 
+
 def forgot_password(request):
     if request.method == "POST":
         current_site = get_current_site(request)
@@ -146,6 +147,7 @@ def forgot_password(request):
         return render(request, "password_reset.html")
     return render(request, "password_reset.html")
 
+
 def reset_password_confirm(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -159,15 +161,14 @@ def reset_password_confirm(request, uidb64, token):
             if new_password == new_password_confirm:
                 user.set_password(new_password_confirm)
                 user.save()
-                messages.success(
-                    request, "Your password was successfully reset."
-                )
+                messages.success(request, "Your password was successfully reset.")
                 return redirect("login")
     else:
         messages.error(request, "Sorry, that reset link is invalid!")
         return redirect("home")
     context = {"uidb64": uidb64, "token": token}
     return render(request, "reset_form.html", context)
+
 
 @login_required()
 def change_password(request):
@@ -182,19 +183,17 @@ def change_password(request):
             user.set_password(new_password)
             user.save()
             update_session_auth_hash(request, user)
-            messages.success(
-                request,
-                "Your password has been changed successfully."
-            )
+            messages.success(request, "Your password has been changed successfully.")
             return redirect("home")
         else:
             messages.error(
                 request,
-                "Your input does not match your current password. Please try again."
+                "Your input does not match your current password. Please try again.",
             )
             return redirect("change-password")
 
     return render(request, "change_password.html")
+
 
 @login_required()
 def view_profile(request):
