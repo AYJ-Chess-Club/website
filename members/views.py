@@ -16,6 +16,12 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
+from .lichess_api import (
+    get_blitz_rating,
+    get_bullet_rating,
+    get_classical_rating,
+    get_rapid_rating,
+)
 
 UserModel = get_user_model()
 
@@ -198,9 +204,32 @@ def change_password(request):
 @login_required()
 def view_profile(request):
     identicon_data = requests.get(
-        f"https://identiconapi.ayjchess.repl.co/api/v0.1.0/b64/{request.user}"
+        f"https://yakfumblepack.pythonanywhere.com/api/v0.1.0/b64/{request.user}"
     ).text
-    args = {"user": request.user, "identicon_data": identicon_data}
+
+    bullet_rating = ""
+    blitz_rating = ""
+    rapid_rating = ""
+    classical_rating = ""
+
+    lichess_username = str(request.user.userprofile.user_lichess_username)
+
+    try:
+        bullet_rating = get_bullet_rating(lichess_username)
+        blitz_rating = get_blitz_rating("yak-fumblepack")
+        rapid_rating = get_rapid_rating("yak-fumblepack")
+        classical_rating = get_classical_rating("yak-fumblepack")
+    except:
+        pass
+
+    args = {
+        "user": request.user,
+        "identicon_data": identicon_data,
+        "lichess_bullet": bullet_rating,
+        "lichess_blitz": blitz_rating,
+        "lichess_rapid": rapid_rating,
+        "lichess_classic": classical_rating,
+    }
     return render(request, "profile.html", args)
 
 
@@ -216,7 +245,7 @@ class ShowProfileView(DetailView):
         context = super().get_context_data(**kwargs)
         username_object = get_object_or_404(User, username=self.kwargs.get("username"))
         identicon_data = requests.get(
-            f"https://identiconapi.ayjchess.repl.co/api/v0.1.0/b64/{username_object}"
+            f"https://yakfumblepack.pythonanywhere.com/api/v0.1.0/b64/{username_object}"
         ).text
         context["identicon_data"] = identicon_data
         return context
