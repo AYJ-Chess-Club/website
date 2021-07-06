@@ -31,6 +31,12 @@ img {
   height: auto;
 }
 
+.exec-profile-image {
+  height: 256px; 
+  width: auto; 
+  object-fit:cover;
+}
+
 /*
 *
 *  Theming
