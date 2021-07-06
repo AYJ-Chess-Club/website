@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     "app",
     "members",
     "ckeditor",
-    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -200,6 +199,3 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # AUTH
 LOGIN_URL = "/members/login/"
-
-# Crispy forms
-CRISPY_TEMPLATE_PACK = "bootstrap4"

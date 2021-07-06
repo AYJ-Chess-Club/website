@@ -93,7 +93,7 @@
         </div>
         <p class="lead">{{ announcement.author }} - {{ announcement.announcement_date }}</p>
         <p>{{ announcement.body | truncatewords:80 | safe}}</p>
-        <a href="{% url 'announcement-detail-page' announcement.pk %}">Read more</a>
+        <a class="text-decoration-none" href="{% url 'announcement-detail-page' announcement.pk %}">Read more</a>
       </div>
     </div>
   </div>
