@@ -18,7 +18,7 @@ def get_bullet_rating(username):
     try:
         parsed_rating = rating_data[0]["points"][0][3]
         return parsed_rating
-    except:
+    except Exception:
         parsed_rating = "N/A"
         return parsed_rating
 
@@ -29,7 +29,7 @@ def get_blitz_rating(username):
     try:
         parsed_rating = rating_data[1]["points"][0][3]
         return parsed_rating
-    except:
+    except Exception:
         parsed_rating = "N/A"
         return parsed_rating
 
@@ -40,7 +40,7 @@ def get_rapid_rating(username):
     try:
         parsed_rating = rating_data[2]["points"][0][3]
         return parsed_rating
-    except:
+    except Exception:
         parsed_rating = "N/A"
         return parsed_rating
 
@@ -51,6 +51,6 @@ def get_classical_rating(username):
     try:
         parsed_rating = rating_data[2]["points"][0][3]
         return parsed_rating
-    except:
+    except Exception:
         parsed_rating = "N/A"
         return parsed_rating

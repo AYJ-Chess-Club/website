@@ -219,7 +219,7 @@ def view_profile(request):
         blitz_rating = get_blitz_rating("yak-fumblepack")
         rapid_rating = get_rapid_rating("yak-fumblepack")
         classical_rating = get_classical_rating("yak-fumblepack")
-    except:
+    except Exception:
         pass
 
     args = {
