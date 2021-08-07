@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import addAnnouncement, Lesson, lessonDifficulty
+from .models import Announcement, Lesson, lessonDifficulty
 
 
 class LessonAdmin(admin.ModelAdmin):
@@ -32,6 +32,6 @@ class AnnouncementAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
-admin.site.register(addAnnouncement, AnnouncementAdmin)
+admin.site.register(Announcement, AnnouncementAdmin)
 admin.site.register(lessonDifficulty)
 admin.site.register(Lesson, LessonAdmin)

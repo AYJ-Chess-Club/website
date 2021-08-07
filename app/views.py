@@ -18,7 +18,7 @@ from django.views.generic import (
 )
 
 from .forms import AnnouncementForm, EditAnnouncementForm, EditLessonForm, LessonForm
-from .models import Lesson, addAnnouncement
+from .models import Lesson, Announcement
 
 
 # Create your views here.
@@ -52,35 +52,35 @@ from .models import Lesson, addAnnouncement
 
 
 class HomeView(ListView):
-    model = addAnnouncement
+    model = Announcement
     template_name = "pages/home.html"
     paginate_by = 5
-    query_set = addAnnouncement.objects.all()
+    query_set = Announcement.objects.all()
     context_object_name = "announcements"
     ordering = ["-announcement_date"]
 
 
 class AnnouncementDetailView(DetailView):
-    model = addAnnouncement
+    model = Announcement
     template_name = "announcements/announcement.html"
 
 
 class AddAnnouncementView(SuccessMessageMixin, CreateView):
-    model = addAnnouncement
+    model = Announcement
     form_class = AnnouncementForm
     template_name = "announcements/add_announcement.html"
     success_message = "Your announcement was posted successfully"
 
 
 class UpdateAnnouncementView(SuccessMessageMixin, UpdateView):
-    model = addAnnouncement
+    model = Announcement
     template_name = "announcements/update_announcement.html"
     form_class = EditAnnouncementForm
     success_message = "Your announcement was updated successfully"
 
 
 class DeleteAnnouncementView(SuccessMessageMixin, DeleteView):
-    model = addAnnouncement
+    model = Announcement
     template_name = "announcements/delete_announcement.html"
 
     def get_success_url(self):

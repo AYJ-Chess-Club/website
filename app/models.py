@@ -14,7 +14,7 @@ class lessonDifficulty(models.Model):
         return reverse("home")
 
 
-class addAnnouncement(models.Model):
+class Announcement(models.Model):
     title = models.CharField(max_length=225)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = RichTextField(blank=True, null=True)
