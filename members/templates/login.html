@@ -31,9 +31,9 @@
     <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
     <input type="hidden" name="next" value="{{ request.GET.next }}" />
     <div class="py-3">
-      <span>Want to sign up? </span><a href="{% url 'register' %}">Join!</a>
+      <span>Want to sign up? </span><a class="text-decoration-none" href="{% url 'register' %}">Join!</a>
       <br>
-      <a href="">Forgot your password?</a>
+      <a class="text-decoration-none" href="{% url 'forgot-password' %}">Forgot your password?</a>
     </div>
   </form>
     </div>

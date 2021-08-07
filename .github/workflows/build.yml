@@ -25,7 +25,7 @@ jobs:
           black .
       - name: Lint with flake8
         run: |
-          flake8 . --statistics --show-source --ignore=W503 --max-line-length=120
+          flake8 . --statistics --show-source --ignore=W503 --max-line-length=120 ----exclude=.git,venv
   build-docker:
     timeout-minutes: 8
     runs-on: ubuntu-20.04
@@ -41,6 +41,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 black
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Run tests
+        run: |
+          python manage.py test members.tests --verbosity 3
       - name: Start containers using docker compose
         run: |
           echo ${{ secrets.django_secret }} > .env

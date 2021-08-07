@@ -14,7 +14,14 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
+from .lichess_api import (
+    get_blitz_rating,
+    get_bullet_rating,
+    get_classical_rating,
+    get_rapid_rating,
+)
 
 UserModel = get_user_model()
 
@@ -25,7 +32,7 @@ def register(request):
 
     if request.method == "POST":
         form = RegisterForm(request.POST)
-        if form.is_valid():
+        try:
             user = form.save(commit=False)
             user.is_active = False
             user.save()
@@ -49,10 +56,10 @@ def register(request):
                 "Your account was created, please check your email to activate it.",
             )
             return redirect("login")
-        else:
+        except Exception as e:
             messages.error(
                 request,
-                "The information you have filled out conflicts with another account. Please change it.",
+                f"Please ensure that all credentials were filled in properly. Error: {e}",
             )
             return redirect("register")
 
@@ -109,12 +116,120 @@ def logout_request(request):
     return redirect("/")
 
 
+def forgot_password(request):
+    if request.method == "POST":
+        current_site = get_current_site(request)
+        _username = request.POST.get("_username")
+        _email = request.POST.get("_email")
+        user = User.objects.get(username__exact=_username)
+        if _username and _email:
+            try:
+                mail_subject = "AYJ Chess Club password reset"
+                message = render_to_string(
+                    "reset_email.html",
+                    {
+                        "user": user,
+                        "domain": current_site.domain,
+                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                        "token": default_token_generator.make_token(user),
+                    },
+                )
+                email = EmailMessage(mail_subject, message, to=[_email])
+                email.content_subtype = "html"
+                email.send()
+                messages.success(
+                    request,
+                    "An email has been sent to your account's email. Further instructions have been included.",
+                )
+                return redirect("forgot-password")
+            except Exception as e:
+                messages.success(
+                    request,
+                    f"Error: {e}",
+                )
+                return redirect("forgot-password")
+
+    else:
+        return render(request, "password_reset.html")
+    return render(request, "password_reset.html")
+
+
+def reset_password_confirm(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = UserModel._default_manager.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and default_token_generator.check_token(user, token):
+        if request.method == "POST":
+            new_password = request.POST.get("_password")
+            new_password_confirm = request.POST.get("_confirm_password")
+            if new_password == new_password_confirm:
+                user.set_password(new_password_confirm)
+                user.save()
+                messages.success(request, "Your password was successfully reset.")
+                return redirect("login")
+    else:
+        messages.error(request, "Sorry, that reset link is invalid!")
+        return redirect("home")
+    context = {"uidb64": uidb64, "token": token}
+    return render(request, "reset_form.html", context)
+
+
+@login_required()
+def change_password(request):
+    if request.method == "POST":
+        user = request.user
+        current_password = request.POST.get("current_password")
+        new_password = request.POST.get("new_password")
+
+        is_valid_password = user.check_password(current_password)
+
+        if is_valid_password:
+            user.set_password(new_password)
+            user.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, "Your password has been changed successfully.")
+            return redirect("home")
+        else:
+            messages.error(
+                request,
+                "Your input does not match your current password. Please try again.",
+            )
+            return redirect("change-password")
+
+    return render(request, "change_password.html")
+
+
 @login_required()
 def view_profile(request):
     identicon_data = requests.get(
-        f"https://identiconapi.ayjchess.repl.co/api/v0.1.0/b64/{request.user}"
+        f"https://yakfumblepack.pythonanywhere.com/api/v0.1.0/b64/{request.user}"
     ).text
-    args = {"user": request.user, "identicon_data": identicon_data}
+
+    bullet_rating = ""
+    blitz_rating = ""
+    rapid_rating = ""
+    classical_rating = ""
+
+    lichess_username = str(request.user.userprofile.user_lichess_username)
+
+    try:
+        bullet_rating = get_bullet_rating(lichess_username)
+        blitz_rating = get_blitz_rating("yak-fumblepack")
+        rapid_rating = get_rapid_rating("yak-fumblepack")
+        classical_rating = get_classical_rating("yak-fumblepack")
+    except Exception:
+        pass
+
+    args = {
+        "user": request.user,
+        "identicon_data": identicon_data,
+        "lichess_bullet": bullet_rating,
+        "lichess_blitz": blitz_rating,
+        "lichess_rapid": rapid_rating,
+        "lichess_classic": classical_rating,
+    }
     return render(request, "profile.html", args)
 
 
@@ -130,7 +245,7 @@ class ShowProfileView(DetailView):
         context = super().get_context_data(**kwargs)
         username_object = get_object_or_404(User, username=self.kwargs.get("username"))
         identicon_data = requests.get(
-            f"https://identiconapi.ayjchess.repl.co/api/v0.1.0/b64/{username_object}"
+            f"https://yakfumblepack.pythonanywhere.com/api/v0.1.0/b64/{username_object}"
         ).text
         context["identicon_data"] = identicon_data
         return context
@@ -144,25 +259,18 @@ def edit_profile_view(request):
             profile_form.save()
             messages.success(request, "Your profile was updated successfully.")
             return redirect("profile")
+        else:
+            messages.error(
+                request,
+                "Please ensure that the CFC and FIDE rating is filled out properly.",
+            )
+            return redirect("edit-profile")
 
     else:
         profile_form = EditProfileForm(instance=request.user)
 
     context = {"form": profile_form}
     return render(request, "edit_profile.html", context)
-
-
-# class EditProfileView(SuccessMessageMixin, UpdateView):
-#     model = UserProfile
-#     template_name = "edit_profile.html"
-#     form_class = EditProfileForm
-#     queryset = User.objects.all()
-#     success_message = "Your profile was updated successfully."
-#     success_url = reverse_lazy("profile")
-
-#     def get_object(self):
-#         username_object = get_object_or_404(User, username=self.kwargs.get("username"))
-#         return username_object
 
 
 def all_users_view(request):

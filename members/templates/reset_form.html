@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Forgot Password | AYJ Chess{% endblock title %}
+{% block content %}
+<div class="container py-5">
+  <div class="mb-4 bg-transparent rounded-3">
+    <div class="container-fluid py-5 text-center">
+      <h2>Reset your password</h2>
+      <br>
+      <form method="post" class="p-4 border rounded-3 bg-light text-dark text-start">
+        {% csrf_token %}
+        <div class="form-floating mb-3">
+          <input
+            name="_password"
+            type="password"
+            class="form-control"
+            id="floatingInput"
+            />
+          <label for="floatingInput">New Password</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            name="_confirm_password"
+            type="password"
+            class="form-control"
+            id="floatingInput"
+            />
+          <label for="floatingInput">Confirm Password</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Reset password</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

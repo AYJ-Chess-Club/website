@@ -26,6 +26,17 @@ blockquote::before {
   border-width: 1px 0;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.exec-profile-image {
+  height: 256px; 
+  width: auto; 
+  object-fit:cover;
+}
+
 /*
 *
 *  Theming
