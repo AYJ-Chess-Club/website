@@ -27,10 +27,20 @@ class addAnnouncement(models.Model):
         return reverse("home")
 
 
-class addLesson(models.Model):
+class Lesson(models.Model):
+
+    difficulty_levels = lessonDifficulty.objects.all().values_list(
+        "difficulty", "difficulty"
+    )
+
+    difficulty_levels_list = []
+
+    for difficulty in difficulty_levels:
+        difficulty_levels_list.append(difficulty)
+
     title = models.CharField(max_length=225)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    difficulty = models.CharField(max_length=225, default="Easy")
+    author = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    difficulty = models.CharField(max_length=225, choices=difficulty_levels)
     body = RichTextField(blank=True, null=True)
     lesson_date = models.DateTimeField(auto_now_add=True)
 

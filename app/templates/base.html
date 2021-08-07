@@ -37,7 +37,7 @@
         </li>
         {% if request.user|in_group:"execs" %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'admin-dashboard' %}">Site Dashboard</a>
+          <a class="nav-link" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{ request.get_host }}/admin/">Site Dashboard</a>
         </li>
         {% endif %}
       </ul>
