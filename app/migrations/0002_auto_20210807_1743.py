@@ -8,17 +8,24 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('app', '0001_initial'),
+        ("app", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='addAnnouncement',
-            new_name='Announcement',
+            old_name="addAnnouncement",
+            new_name="Announcement",
         ),
         migrations.AlterField(
-            model_name='lesson',
-            name='difficulty',
-            field=models.CharField(choices=[('Beginner', 'Beginner'), ('Intermediate', 'Intermediate'), ('Advanced', 'Advanced')], max_length=225),
+            model_name="lesson",
+            name="difficulty",
+            field=models.CharField(
+                choices=[
+                    ("Beginner", "Beginner"),
+                    ("Intermediate", "Intermediate"),
+                    ("Advanced", "Advanced"),
+                ],
+                max_length=225,
+            ),
         ),
     ]
