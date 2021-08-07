@@ -25,7 +25,7 @@ jobs:
           black .
       - name: Lint with flake8
         run: |
-          flake8 . --statistics --show-source --ignore=W503 --max-line-length=120 ----exclude=.git,venv
+          flake8 . --statistics --show-source --ignore=W503 --max-line-length=120 --exclude .git,venv
   build-docker:
     timeout-minutes: 8
     runs-on: ubuntu-20.04
