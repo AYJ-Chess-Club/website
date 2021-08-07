@@ -1,5 +1,5 @@
 from django import forms
-from .models import addAnnouncement, addLesson, lessonDifficulty
+from .models import Announcement, Lesson, lessonDifficulty
 
 
 difficulty_levels = lessonDifficulty.objects.all().values_list(
@@ -14,7 +14,7 @@ for difficulty in difficulty_levels:
 
 class AnnouncementForm(forms.ModelForm):
     class Meta:
-        model = addAnnouncement
+        model = Announcement
         fields = ("title", "author", "body")
 
         widgets = {
@@ -33,7 +33,7 @@ class AnnouncementForm(forms.ModelForm):
 
 class EditAnnouncementForm(forms.ModelForm):
     class Meta:
-        model = addAnnouncement
+        model = Announcement
         fields = ("title", "body")
 
         widgets = {
@@ -44,7 +44,7 @@ class EditAnnouncementForm(forms.ModelForm):
 
 class LessonForm(forms.ModelForm):
     class Meta:
-        model = addLesson
+        model = Lesson
         fields = ("title", "author", "difficulty", "body")
 
         widgets = {
@@ -66,7 +66,7 @@ class LessonForm(forms.ModelForm):
 
 class EditLessonForm(forms.ModelForm):
     class Meta:
-        model = addLesson
+        model = Lesson
         fields = ("title", "body")
 
         widgets = {

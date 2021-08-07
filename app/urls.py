@@ -1,5 +1,4 @@
 from django.urls import path
-from . import views
 from .views import (
     HomeView,
     AnnouncementDetailView,
@@ -18,7 +17,7 @@ from .views import (
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
-    path("admins/dashboard/", views.Dashboard, name="admin-dashboard"),
+    # path("admins/dashboard/", views.Dashboard, name="admin-dashboard"),
     path(
         "announcements/<int:pk>",
         AnnouncementDetailView.as_view(),
