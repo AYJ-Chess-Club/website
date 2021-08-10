@@ -13,6 +13,10 @@ from .views import (
     UpdateLessonView,
     DeleteAnnouncementView,
     DeleteLessonView,
+    privacy_pdf,
+    privacy_policy,
+    terms_of_service,
+    terms_pdf,
 )
 
 urlpatterns = [
@@ -24,12 +28,12 @@ urlpatterns = [
         name="announcement-detail-page",
     ),
     path(
-        "admins/add-announcement/",
+        "admin/app/announcement/add/",
         AddAnnouncementView.as_view(),
         name="add-announcement",
     ),
     path(
-        "admins/announcements/edit/<int:pk>",
+        "admin/app/announcement/<int:pk>/change/",
         UpdateAnnouncementView.as_view(),
         name="update-announcement",
     ),
@@ -38,12 +42,14 @@ urlpatterns = [
         DeleteAnnouncementView.as_view(),
         name="delete-announcement",
     ),
-    path("admins/add-lessons/", AddLessonView.as_view(), name="add-lesson"),
+    path("admin/app/lesson/add/", AddLessonView.as_view(), name="add-lesson"),
     path("difficulty/<str:diff>/", LessonDisplayView, name="difficulty-page"),
     path("lessons/", LessonLandingPage, name="lesson-page"),
     path("lessons/<int:pk>", LessonDetailView.as_view(), name="lesson-detail-page"),
     path(
-        "admins/lessons/edit/<int:pk>", UpdateLessonView.as_view(), name="update-lesson"
+        "admin/app/lesson/<int:pk>/change/",
+        UpdateLessonView.as_view(),
+        name="update-lesson",
     ),
     path(
         "admins/lessons/<int:pk>/delete",
@@ -52,4 +58,8 @@ urlpatterns = [
     ),
     path("events/", events_page, name="events-page"),
     path("about/", about_page, name="about-page"),
+    path("terms-of-service/", terms_of_service, name="terms-of-service"),
+    path("privacy-policy/", privacy_policy, name="privacy-policy"),
+    path("pdf/terms-of-service/", terms_pdf, name="pdf-tos"),
+    path("pdf/privacy-policy/", privacy_pdf, name="pdf-privacy"),
 ]

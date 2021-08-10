@@ -1,3 +1,4 @@
+from app.utils.identicon import getIdenticon
 from django.contrib.auth.decorators import login_required
 import requests
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -244,9 +245,7 @@ class ShowProfileView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         username_object = get_object_or_404(User, username=self.kwargs.get("username"))
-        identicon_data = requests.get(
-            f"https://yakfumblepack.pythonanywhere.com/api/v0.1.0/b64/{username_object}"
-        ).text
+        identicon_data = getIdenticon("b64", str(username_object))
         context["identicon_data"] = identicon_data
         return context
 

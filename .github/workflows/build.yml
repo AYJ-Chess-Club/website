@@ -41,9 +41,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 black
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Run tests
-        run: |
-          python manage.py test members.tests --verbosity 3
       - name: Start containers using docker compose
         run: |
           echo ${{ secrets.django_secret }} > .env

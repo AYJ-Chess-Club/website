@@ -83,17 +83,17 @@
         <div class="d-flex">
           <h1 class="h3 flex-grow-1"><u>{{ announcement.title | safe}}</u></h1>
           {% if request.user|in_group:"execs" %}
-          <a class="px-2" href="{% url 'update-announcement' announcement.pk %}">
+          <a class="px-2" href="{% url 'update-announcement' pk=announcement.pk %}">
             <i class="bi bi-pencil"></i>
           </a>
-          <a class="px-2 text-danger" href="{% url 'delete-announcement' announcement.pk %}">
+          <a class="px-2 text-danger" href="{% url 'delete-announcement' pk=announcement.pk %}">
             <i class="bi bi-trash"></i>
           </a>
           {% endif %}
         </div>
-        <p class="lead">{{ announcement.author }} - {{ announcement.announcement_date }}</p>
-        <p>{{ announcement.body | truncatewords:80 | safe}}</p>
-        <a class="text-decoration-none" href="{% url 'announcement-detail-page' announcement.pk %}">Read more</a>
+        <p class="lead"><a class="text-decoration-none" href="{% url 'show-profile' announcement.author %}">{{ announcement.author }}</a> - {{ announcement.announcement_date }}</p>
+        <p>{{ announcement.body | truncatechars:150 | safe}}</p>
+        <a class="text-decoration-none" href="{% url 'announcement-detail-page' pk=announcement.pk %}">Read more</a>
       </div>
     </div>
   </div>

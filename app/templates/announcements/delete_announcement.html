@@ -1,9 +1,11 @@
-{% extends 'admin/layout.html' %}
+{% extends 'base.html' %}
 {% load auth_extras %}
 {% block title %}{% if request.user|in_group:"execs" %}Delete Announcement{% else %}Error{% endif %}{% endblock %}
 {% block content %}
 {% if request.user|in_group:"execs" %}
-<h1>Delete: <code>{{ addannouncement.title }}</code></h1>
+<div class="px-3">
+  <div class="py-4">
+    <h1>Delete: <a href="{% url 'announcement-detail-page' pk=announcement.pk %}">{{ announcement.title }}</a></h1>
 <br>
 <form action="" method="POST" class="form-group">
   {% csrf_token %}
@@ -19,7 +21,7 @@
           <h5 class="modal-title" id="modalTitle">Confirm Delete</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">This is permanent. Do you really want to delete <code>{{ addannouncement.title }}</code>?</div>
+        <div class="modal-body">This is permanent. Do you really want to delete <code>{{ announcement.title }}</code>?</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
           <button type="submit" class="btn btn-danger">Delete</button>
@@ -28,6 +30,8 @@
     </div>
   </div>
 </form>
+  </div>
+</div>
 {% else %}
 <div class="container py-5 text-center">
   <h1>You have no power here... Checkmate!</h1>

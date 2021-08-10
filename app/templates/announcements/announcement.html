@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{{ addannouncement.title|striptags|safe }}{% endblock %}
+{% block title %}{{ announcement.title|striptags|safe }}{% endblock %}
 {% load auth_extras %}
 {% block js %}
 <script>
@@ -12,18 +12,18 @@
 <div class="container">
   <br>
   <div class="d-flex">
-    <h1 class="flex-grow-1"><u>{{ addannouncement.title | safe }}</u></h1>
+    <h1 class="flex-grow-1"><u>{{ announcement.title | safe }}</u></h1>
     {% if request.user|in_group:"execs" %}
-    <a class="px-2" href="{% url 'update-announcement' addannouncement.pk %}">
+    <a class="px-2" href="{% url 'update-announcement' pk=announcement.pk %}">
     <i class="bi bi-pencil"></i>
     </a>
-    <a class="px-2 text-danger" href="{% url 'delete-announcement' addannouncement.pk %}">
+    <a class="px-2 text-danger" href="{% url 'delete-announcement' pk=announcement.pk %}">
     <i class="bi bi-trash"></i>
     </a>
     {% endif %}
   </div>
-  <p class="lead fs-4">{{ addannouncement.author }} - {{ addannouncement.announcement_date }}</p>
-  <p>{{ addannouncement.body | safe }}</p>
+  <p class="lead fs-4"><a class="text-decoration-none" href="{% url 'show-profile' announcement.author %}">{{ announcement.author }}</a> - {{ announcement.announcement_date }}</p>
+  <p>{{ announcement.body | safe }}</p>
   <div class="py-3">
     <hr>
     <button onclick="goBack()" class="btn btn-primary">

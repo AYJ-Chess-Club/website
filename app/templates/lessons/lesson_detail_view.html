@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load auth_extras %}
-{% block title %}{{ addlesson.title | safe | striptags }}{% endblock %}
+{% block title %}{{ lesson.title | safe | striptags }}{% endblock %}
 {% block js %}
 <script>
   const goBack = () => {
@@ -12,18 +12,18 @@
 <div class="container">
   <br>
   <div class="d-flex">
-    <h1 class="flex-grow-1">{{ addlesson.title | safe }}</h1>
+    <h1 class="flex-grow-1">{{ lesson.title | safe }}</h1>
     {% if request.user|in_group:"execs" %}
-    <a class="px-2" href="{% url 'update-lesson' addlesson.pk %}">
+    <a class="px-2" href="{% url 'update-lesson' pk=lesson.pk %}">
     <i class="bi bi-pencil"></i>
     </a>
-    <a class="px-2 text-danger" href="{% url 'delete-lesson' addlesson.pk %}">
+    <a class="px-2 text-danger" href="{% url 'delete-lesson' pk=lesson.pk %}">
     <i class="bi bi-trash"></i>
     </a>
     {% endif %}
   </div>
-  <p class="lead fs-4">Author: {{ addlesson.author.first_name }} {{ addlesson.author.last_name }}</p>
-  <p>{{ addlesson.body | safe }}</p>
+  <p class="lead fs-4">Author: {{ lesson.author.first_name }} {{ lesson.author.last_name }}</p>
+  <p>{{ lesson.body | safe }}</p>
   <div class="py-3">
     <hr>
     <button onclick="goBack()" class="btn btn-primary">
