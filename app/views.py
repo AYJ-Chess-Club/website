@@ -1,13 +1,15 @@
 # from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin
+import markdown
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http.response import FileResponse
 
 # from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
-from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import (
     CreateView,
@@ -18,8 +20,7 @@ from django.views.generic import (
 )
 
 from .forms import AnnouncementForm, EditAnnouncementForm, EditLessonForm, LessonForm
-from .models import Lesson, Announcement
-
+from .models import Announcement, Lesson
 
 # Create your views here.
 
@@ -139,3 +140,35 @@ def events_page(request):
 
 def about_page(request):
     return render(request, "pages/about.html")
+
+
+def terms_of_service(request):
+    terms_of_service_content = ""
+    with open("app/templates/pages/markdown/tos.md") as f:
+        terms_of_service_markdown = f.read()
+        parsed_markdown = markdown.markdown(terms_of_service_markdown)
+        terms_of_service_content = parsed_markdown
+    return render(request, "pages/tos.html", {"content": terms_of_service_content})
+
+
+def terms_pdf(request):
+    pdf = open("staticfiles/terms-of-service.pdf", "rb")
+    response = FileResponse(pdf)
+    return response
+
+
+def privacy_policy(request):
+    privacy_policy_content = ""
+    with open("app/templates/pages/markdown/privacypolicy.md") as f:
+        privacy_policy_markdown = f.read()
+        parsed_markdown = markdown.markdown(privacy_policy_markdown)
+        privacy_policy_content = parsed_markdown
+    return render(
+        request, "pages/privacypolicy.html", {"content": privacy_policy_content}
+    )
+
+
+def privacy_pdf(request):
+    pdf = open("staticfiles/privacy-policy.pdf", "rb")
+    response = FileResponse(pdf)
+    return response

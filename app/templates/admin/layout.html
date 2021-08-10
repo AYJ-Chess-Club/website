@@ -17,7 +17,7 @@
   </head>
   <nav class="navbar navbar-expand-lg navbar-dark navbar-default navbar-static-top" id="navbar">
     <div class="container-fluid">
-    <a class="navbar-brand" href="{% if request.user|in_group:"execs" %}{% url 'admin-dashboard' %}{% else %}{% url 'home' %}{% endif %}">{% if request.user|in_group:"execs" %}Dashboard{% else %}AYJ Chess Club{% endif %}</a>
+    <a class="navbar-brand" href="{% if request.user|in_group:"execs" %}{% if request.is_secure %}https://{% else %}http://{% endif %}{{ request.get_host }}/admin/{% else %}{% url 'home' %}{% endif %}">{% if request.user|in_group:"execs" %}Dashboard{% else %}AYJ Chess Club{% endif %}</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbardropdown" aria-controls="navbardropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
