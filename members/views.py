@@ -264,7 +264,7 @@ class ShowProfileView(DetailView):
         context["lichess_bullet"] = bullet_rating
         context["lichess_blitz"] = blitz_rating
         context["lichess_rapid"] = rapid_rating
-        context["lichess_classic"] = classical_rating 
+        context["lichess_classic"] = classical_rating
         context["identicon_data"] = identicon_data
         return context
 
