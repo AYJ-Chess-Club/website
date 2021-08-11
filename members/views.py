@@ -1,6 +1,5 @@
 from app.utils.identicon import getIdenticon
 from django.contrib.auth.decorators import login_required
-import requests
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import UserProfile
 from django.contrib import messages
@@ -264,7 +263,7 @@ class ShowProfileView(DetailView):
         context["lichess_bullet"] = bullet_rating
         context["lichess_blitz"] = blitz_rating
         context["lichess_rapid"] = rapid_rating
-        context["lichess_classic"] = classical_rating 
+        context["lichess_classic"] = classical_rating
         context["identicon_data"] = identicon_data
         return context
 
