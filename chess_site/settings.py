@@ -196,7 +196,7 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = "AYJ Chess Club <noreply@ayjchess.pythonanywhere.com>"
 
 # AUTH
 LOGIN_URL = "/members/login/"
@@ -244,3 +244,5 @@ JAZZMIN_UI_TWEAKS = {
     },
     "actions_sticky_top": False,
 }
+
+SITE_ID = 1
