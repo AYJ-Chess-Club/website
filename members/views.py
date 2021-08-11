@@ -204,9 +204,7 @@ def change_password(request):
 
 @login_required()
 def view_profile(request):
-    identicon_data = requests.get(
-        f"https://yakfumblepack.pythonanywhere.com/api/v0.1.0/b64/{request.user}"
-    ).text
+    identicon_data = getIdenticon("b64", str(request.user))
 
     bullet_rating = ""
     blitz_rating = ""
@@ -245,7 +243,28 @@ class ShowProfileView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         username_object = get_object_or_404(User, username=self.kwargs.get("username"))
+
+        bullet_rating = ""
+        blitz_rating = ""
+        rapid_rating = ""
+        classical_rating = ""
+
+        lichess_username = str(username_object.userprofile.user_lichess_username)
+
+        try:
+            bullet_rating = get_bullet_rating(lichess_username)
+            blitz_rating = get_blitz_rating(lichess_username)
+            rapid_rating = get_rapid_rating(lichess_username)
+            classical_rating = get_classical_rating(lichess_username)
+        except Exception:
+            pass
+
         identicon_data = getIdenticon("b64", str(username_object))
+        context["user"] = username_object
+        context["lichess_bullet"] = bullet_rating
+        context["lichess_blitz"] = blitz_rating
+        context["lichess_rapid"] = rapid_rating
+        context["lichess_classic"] = classical_rating 
         context["identicon_data"] = identicon_data
         return context
 
