@@ -1,21 +1,158 @@
-Hi {{ user.username }},
-<br>
-<br>
-You're receiving this email because you requested a password reset for your user account.
-<br>
-<br>
-To confirm your request, click on the following link:
-<br>
-<br>
-http://{{ domain }}{% url 'reset-password-confirm' uidb64=uid token=token %}
-<br>
-<br>
-If you have not requested a password change on our website, please ignore this email.
-<br>
-<br>
-<br>
-A. Y. Jackson Chess Club
-<br>
-<br>
-<a href="https://ayjchess.pythonanywhere.com">Website</a> | <a href="https://instagram.com/ayjchessclub">Instagram</a> | <a href="https://www.facebook.com/groups/176340034444236/">Facebook</a>
+<table bgcolor="#f8f9fa" border="0" cellpadding="0" cellspacing="0" height="100%" style="background:#f8f9fa;border-collapse:collapse;height:100%!important;margin:0;padding:0;width:100%!important" width="100%">
+	<tbody>
+		<tr>
+			<td align="center" style="border-top-width:0;height:100%!important;margin:0;padding:20px 10px;width:100%!important" valign="top">
+			<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:0;max-width:600px" width="100%">
+				<tbody>
+					<tr>
+						<td align="center" bgcolor="#f8f9fa" style="text-align:center;background:#f8f9fa;border-bottom-color:#cc0000;border-bottom-style:solid;border-bottom-width:10px;border-top-width:0" valign="top">
+						<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse" width="100%">
+							<tbody>
+								<tr>
+									<td valign="top">
+									<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;min-width:100%" width="100%">
+										<tbody>
+											<tr>
+												<td style="text-align:center" valign="top">
+												<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;min-width:100%" width="100%">
+													<tbody>
+														<tr>
+															<td align="center" style="text-align:center;color:#ffffff;font-family:Helvetica;font-size:11px;line-height:125%;padding:9px 18px;text-align:center" valign="top"><img align="center" alt="" height="auto" src="https://cdn.discordapp.com/attachments/862446130733383751/875077403418984518/AYJ_Chess_Logo.png" style="border:0;height:auto!important;margin:0px;margin-bottom:10px;outline:none;text-decoration:none;width:140px" width="140"> <img src=""></td>
+														</tr>
+													</tbody>
+												</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" bgcolor="#ffffff" style="background:#ffffff;border-bottom-width:0;border-top-width:0" valign="top">
+						<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse" width="100%">
+							<tbody>
+								<tr style="border-bottom:1px solid #eff1f3;border-left:1px solid #eff1f3;border-right:1px solid #eff1f3">
+									<td style="padding-top:30px;padding-bottom:30px;padding-left:20px;padding-right:20px" valign="top">
+									<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;min-width:100%" width="100%">
+										<tbody>
+											<tr>
+												<td valign="top">
+												<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;min-width:100%" width="100%">
+													<tbody>
+														<tr>
+															<td align="left" style="color:#606060;font-family:Verdana,Geneva,sans-serif;font-size:16px;line-height:125%;padding:9px 18px 0px 18px;text-align:left" valign="top"><span style="font-family:arial,helvetica neue,helvetica,sans-serif;"><span style="font-size: 24px; color: #cc0000;">Hi {{ user.username }},</span><br>
+															<br>
+															You're receiving this email because you requested a password reset for your user account.
+                              <br>
+                              To confirm your request, click on the following link:
+                              <br>
+                              <br>
+                              </span></td>
+														</tr>
+													</tbody>
+												</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
 
+									<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;min-width:100%" width="100%">
+										<tbody>
+											<tr>
+												<td valign="top">
+
+												<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;min-width:100%" width="100%">
+													<tbody>
+														<tr>
+															<td align="center" style="padding:18px" valign="top">
+															<table bgcolor="#cc0000;" border="0" cellpadding="0" cellspacing="0" style="background:#cc0000;border-collapse:separate!important;border-radius:3px">
+																<tbody>
+																	<tr>
+																		<td align="center" style="font-family:Arial;font-size:16px;padding:15px;color:#fff" valign="middle"><a href="http://{{ domain }}{% url 'reset-password-confirm' uidb64=uid token=token %}" style="color:#ffffff;display:block;font-weight:bold;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;word-wrap:break-word" title="Confirm Registration" target="_blank">Change password</a></td>
+																	</tr>
+																</tbody>
+															</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+
+												<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;min-width:100%" width="100%">
+													<tbody>
+														<tr>
+															<td valign="top">
+															<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;min-width:100%" width="100%">
+																<tbody>
+																	<tr>
+																		<td align="left" style="color:#606060;font-family:Verdana,Geneva,sans-serif;font-size:16px;line-height:125%;padding:9px 18px;text-align:left" valign="top">
+																		<p><span style="font-family:Verdana,Geneva,sans-serif;font-size: 15px;line-height:125%;">Have fun,<br>
+																		A.Y. Jackson Chess Club</span></p>
+                                    <br>
+                                    <p><a href="https://ayjchess.pythonanywhere.com" style="text-decoration:none;">Website</a> | <a href="https://instagram.com/ayjchessclub" style="text-decoration: none;">Instagram</a> | <a href="https://www.facebook.com/groups/176340034444236/" style="text-decoration: none;">Facebook</a></p>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									</td>
+								</tr>
+								<tr>
+									<td align="center" bgcolor="#eff1f3" style="background:#eff1f3;border-bottom-width:0;border-top-width:0" valign="top">
+									<table align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse" width="100%">
+										<tbody>
+											<tr>
+												<td valign="top">&nbsp;</td>
+											</tr>
+										</tbody>
+									</table>
+									</td>
+								</tr>
+								<tr>
+									<td align="center" bgcolor="#f8f9fa" style="background:#f8f9fa;border-bottom-width:0;border-top-width:0" valign="top">
+									<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse" width="100%">
+										<tbody>
+											<tr>
+												<td valign="top">
+												<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;min-width:100%" width="100%">
+													<tbody>
+														<tr>
+															<td valign="top">
+															<table align="left" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;min-width:100%" width="100%">
+																<tbody>
+																	<tr>
+																		<td align="center" style="color:#000000;font-family:Verdana,Geneva,sans-serif;font-size:11px;line-height:125%;padding:9px 18px;text-align:center" valign="top"><br>
+																		<span style="color:#808080"><span style="font-family:arial,helvetica neue,helvetica,sans-serif">If you have not requested a password change on our website, please ignore this email. This email expires soon. If you would like to change your password, click the link immediately. Please do not reply to this email.</span></span></td>
+																	</tr>
+																</tbody>
+															</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
