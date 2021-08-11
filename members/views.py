@@ -217,9 +217,9 @@ def view_profile(request):
 
     try:
         bullet_rating = get_bullet_rating(lichess_username)
-        blitz_rating = get_blitz_rating("yak-fumblepack")
-        rapid_rating = get_rapid_rating("yak-fumblepack")
-        classical_rating = get_classical_rating("yak-fumblepack")
+        blitz_rating = get_blitz_rating(lichess_username)
+        rapid_rating = get_rapid_rating(lichess_username)
+        classical_rating = get_classical_rating(lichess_username)
     except Exception:
         pass
 
