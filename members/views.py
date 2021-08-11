@@ -266,7 +266,7 @@ def edit_profile_view(request):
             return redirect("edit-profile")
 
     else:
-        profile_form = EditProfileForm(instance=request.user)
+        profile_form = EditProfileForm(instance=request.user.userprofile)
 
     context = {"form": profile_form}
     return render(request, "edit_profile.html", context)
