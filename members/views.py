@@ -1,6 +1,5 @@
 from app.utils.identicon import getIdenticon
 from django.contrib.auth.decorators import login_required
-import requests
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .models import UserProfile
 from django.contrib import messages
