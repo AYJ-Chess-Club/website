@@ -36,7 +36,12 @@ INSTALLED_APPS = [
     "app",
     "members",
     "ckeditor",
+    "comment",
 ]
+
+# Comments
+COMMENT_ALLOW_ANONYMOUS = False
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -244,5 +249,3 @@ JAZZMIN_UI_TWEAKS = {
     },
     "actions_sticky_top": False,
 }
-
-SITE_ID = 1

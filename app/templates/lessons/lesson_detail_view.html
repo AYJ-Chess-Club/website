@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load auth_extras %}
+{% load comment_tags %}
 {% block title %}{{ lesson.title | safe | striptags }}{% endblock %}
 {% block js %}
 <script>
@@ -30,5 +31,6 @@
     Go Back
     </button>
   </div>
+  {% render_comments lesson request %}
 </div>
 {% endblock %}

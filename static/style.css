@@ -19,6 +19,38 @@ blockquote::before {
   border-radius: 2px / 4px;
 }
 
+table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  border: none;
+}
+
+table th {
+  font-weight: 600;
+}
+
+table td,
+table th {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+table tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+
 .divider {
   height: 5rem;
   /*background-color: 	#FF8C00;*/
@@ -35,6 +67,14 @@ img {
   height: 256px; 
   width: auto; 
   object-fit:cover;
+}
+
+.title-on-hover {
+  color: #da7959;
+}
+
+.title-on-hover:hover {
+  color: brown;
 }
 
 /*
@@ -71,12 +111,12 @@ nav {
 
 #signup-btn {
   background: transparent;
-  color: deepskyblue;
+  color: #dfe2e5;
 }
 
 #login-btn {
   background: transparent;
-  color: deepskyblue;
+  color: #dfe2e5;
 }
 
 #logout-btn {

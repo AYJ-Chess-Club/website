@@ -22,40 +22,11 @@ from django.views.generic import (
 from .forms import AnnouncementForm, EditAnnouncementForm, EditLessonForm, LessonForm
 from .models import Announcement, Lesson
 
-# Create your views here.
-
-# def Dashboard(request):
-#     all_users = get_user_model().objects.all()
-#     username = request.user.username
-#     page = request.GET.get("page")
-#     user_list = User.objects.all()
-#     paginator = Paginator(user_list, 10)
-#     try:
-#         all_users = paginator.page(page)
-#     except PageNotAnInteger:
-#         all_users = paginator.page(1)
-#     except EmptyPage:
-#         all_users = paginator.page(paginator.num_pages)
-#     group_list = []
-#     user_groups = request.user.groups.all()
-#     for group in user_groups:
-#         group_list.append(group.name)
-#     formatted_group_list = ", ".join(str(group) for group in group_list)
-#     return render(
-#         request,
-#         "admin/dashboard.html",
-#         {
-#             "loggedin_username": username,
-#             "all_users": all_users,
-#             "current_groups": formatted_group_list,
-#         },
-#     )
-
 
 class HomeView(ListView):
     model = Announcement
     template_name = "pages/home.html"
-    paginate_by = 5
+    paginate_by = 4
     query_set = Announcement.objects.all()
     context_object_name = "announcements"
     ordering = ["-announcement_date"]
