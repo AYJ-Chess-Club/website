@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load auth_extras %}
+{% load comment_tags %}
 {% block title %}Home | AYJ Chess Club{% endblock %}
 {% block content %}
 <h1 class="display-1 text-center py-2">Welcome to <span style="color: #FF4500;">AYJ's</span> Chess Club!</h1>
@@ -75,13 +76,15 @@
 <div class="container px-4 py-2">
   <hr>
   {% endif %}
-  <h1 id="announcements">Announcements</h1>
-  {% for announcement in announcements %}
-  <div class="py-2">
-    <div class="py-2 announcement text-start border rounded-3 border-2">
-      <div class="p-2 px-3">
+  <h3 style="background-color: #282c34; color: #eee;" class="rounded px-2" id="announcements"><div class="d-flex"><div class="flex-grow-1">Announcements</div><div class="mb-1"><i class="bi bi-megaphone"></i></div></div></h3>
+      <div class="border rounded-3 border-2 p-2">
+        {% for announcement in announcements %}
+  <div class="px-3 py-2">
+    <div class="announcement text-start">
+      <div class="px-3 border-2 border-bottom rounded-3">
         <div class="d-flex">
-          <h1 class="h3 flex-grow-1"><u>{{ announcement.title | safe}}</u></h1>
+          <h1 class="h3 flex-grow-1"><a style="text-decoration: none;" class="title-on-hover" href="{% url 'announcement-detail-page' pk=announcement.pk %}">{{ announcement.title | safe}}</a></h1>
+          <a href="{% url 'announcement-detail-page' pk=announcement.pk %}#comments" class="text-decoration-none"><i class="bi bi-chat-fill"></i> <span class="align-middle">{% get_comments_count announcement user %}</span></a>
           {% if request.user|in_group:"execs" %}
           <a class="px-2" href="{% url 'update-announcement' pk=announcement.pk %}">
             <i class="bi bi-pencil"></i>
@@ -91,13 +94,13 @@
           </a>
           {% endif %}
         </div>
-        <p class="lead"><a class="text-decoration-none" href="{% url 'show-profile' announcement.author %}">{{ announcement.author }}</a> - {{ announcement.announcement_date }}</p>
-        <p>{{ announcement.body | truncatechars:150 | safe}}</p>
-        <a class="text-decoration-none" href="{% url 'announcement-detail-page' pk=announcement.pk %}">Read more</a>
+        <p class="fw-bold"><a class="text-decoration-none" href="{% url 'show-profile' announcement.author %}">{{ announcement.author }}</a> - {{ announcement.announcement_date }}</p>
+        <p>{{ announcement.body | safe }}</p>
       </div>
     </div>
   </div>
   {% endfor %}
+      </div>
   <div class="py-2">
     <ul class="pagination">
       {% if page_obj.has_previous %}

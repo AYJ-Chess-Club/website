@@ -4,6 +4,7 @@ from ckeditor.fields import RichTextField
 from django.db.models.signals import post_save
 from django.db.models.fields import CharField, IntegerField
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.urls import reverse
 
 
 class UserProfile(models.Model):
@@ -27,6 +28,9 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def get_absolute_url(self):
+        return reverse("show-profile", kwargs={"username": self.user.username})
 
 
 def create_user_profile(sender, instance, created, **kwargs):
