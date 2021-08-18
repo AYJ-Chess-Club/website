@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib.contenttypes.fields import GenericRelation
 from ckeditor.fields import RichTextField
+from comment.models import Comment
 
 
 class lessonDifficulty(models.Model):
@@ -19,6 +21,7 @@ class Announcement(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = RichTextField(blank=True, null=True)
     announcement_date = models.DateTimeField(auto_now_add=True)
+    comments = GenericRelation(Comment)
 
     def __str__(self):
         return self.title + "-" + str(self.announcement_date) + "-" + str(self.author)

@@ -6,11 +6,8 @@ charset-normalizer==2.0.4
 click==8.0.1
 Django==3.2.6
 django-ckeditor==6.1.0
-django-comments-xtd==2.9.2
-django-contrib-comments==2.1.0
 django-jazzmin==2.4.8
 django-js-asset==1.2.2
-djangorestframework==3.12.4
 docutils==0.17.1
 flake8==3.9.2
 idna==3.2
