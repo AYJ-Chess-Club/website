@@ -46,6 +46,7 @@ class Lesson(models.Model):
     difficulty = models.CharField(max_length=225, choices=difficulty_levels)
     body = RichTextField(blank=True, null=True)
     lesson_date = models.DateTimeField(auto_now_add=True)
+    comments = GenericRelation(Comment)
 
     def __str__(self):
         return self.title + "-" + str(self.lesson_date) + "-" + str(self.author)
