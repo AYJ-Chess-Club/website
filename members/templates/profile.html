@@ -83,7 +83,9 @@
         <div class="rounded-3 border border-2 p-3">
           <div class="d-flex">
             <div class="h3 flex-grow-1">Bio</div>
+            {% if request.user == user %}
             <a href="{% url 'edit-profile' %}" class="px-2"><i class="bi bi-pencil"></i></a>
+            {% endif %}
           </div>
           <p>{{ user.userprofile.user_bio|safe|safe_markdown }}</p>
         </div>
