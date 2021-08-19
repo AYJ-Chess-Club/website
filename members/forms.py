@@ -71,5 +71,5 @@ class EditProfileForm(ModelForm):
             "user_discord_username": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Example: username#0000"}
             ),
-            "user_bio": MartorWidget()
+            "user_bio": MartorWidget(),
         }
