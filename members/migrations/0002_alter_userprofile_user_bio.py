@@ -7,13 +7,13 @@ import martor.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('members', '0001_initial'),
+        ("members", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='userprofile',
-            name='user_bio',
+            model_name="userprofile",
+            name="user_bio",
             field=martor.models.MartorField(blank=True),
         ),
     ]
