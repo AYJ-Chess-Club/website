@@ -3,6 +3,7 @@ from members.models import UserProfile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
+from martor.widgets import MartorWidget
 
 
 class RegisterForm(UserCreationForm):
@@ -70,4 +71,5 @@ class EditProfileForm(ModelForm):
             "user_discord_username": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Example: username#0000"}
             ),
+            "user_bio": MartorWidget(),
         }

@@ -30,6 +30,12 @@ table th {
   font-weight: 600;
 }
 
+#martor-user_bio {
+  height: 800px;
+  overflow-x: hidden;
+  font-size: 100%;
+}
+
 table td,
 table th {
   padding: 6px 13px;
@@ -135,4 +141,10 @@ nav {
 
 .dark-auth-buttons {
   color: #fff!important;
+}
+
+.direct-mention-link {
+  text-decoration: none;
+  font-weight: bold;
+  color: royalblue;
 }

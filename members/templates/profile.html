@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load martortags %}
 {% block title %}{{ user.username }} | AYJ Chess Club{% endblock title %}
 {% block js %}
 <script>
@@ -82,9 +83,11 @@
         <div class="rounded-3 border border-2 p-3">
           <div class="d-flex">
             <div class="h3 flex-grow-1">Bio</div>
+            {% if request.user == user %}
             <a href="{% url 'edit-profile' %}" class="px-2"><i class="bi bi-pencil"></i></a>
+            {% endif %}
           </div>
-          <p>{{ user.userprofile.user_bio|safe }}</p>
+          <p>{{ user.userprofile.user_bio|safe|safe_markdown }}</p>
         </div>
         {% else %}
         <div class="rounded-3 border border-2 p-3">

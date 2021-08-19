@@ -76,31 +76,36 @@
 <div class="container px-4 py-2">
   <hr>
   {% endif %}
-  <h3 style="background-color: #282c34; color: #eee;" class="rounded px-2" id="announcements"><div class="d-flex"><div class="flex-grow-1">Announcements</div><div class="mb-1"><i class="bi bi-megaphone"></i></div></div></h3>
-      <div class="border rounded-3 border-2 p-2">
-        {% for announcement in announcements %}
-  <div class="px-3 py-2">
-    <div class="announcement text-start">
-      <div class="px-3 border-2 border-bottom rounded-3">
-        <div class="d-flex">
-          <h1 class="h3 flex-grow-1"><a style="text-decoration: none;" class="title-on-hover" href="{% url 'announcement-detail-page' pk=announcement.pk %}">{{ announcement.title | safe}}</a></h1>
-          <a href="{% url 'announcement-detail-page' pk=announcement.pk %}#comments" class="text-decoration-none"><i class="bi bi-chat-fill"></i> <span class="align-middle">{% get_comments_count announcement user %}</span></a>
-          {% if request.user|in_group:"execs" %}
-          <a class="px-2" href="{% url 'update-announcement' pk=announcement.pk %}">
+  <h3 style="background-color: #282c34; color: #eee;" class="rounded px-2" id="announcements">
+    <div class="d-flex">
+      <div class="flex-grow-1">Announcements</div>
+      <div class="mb-1"><i class="bi bi-megaphone"></i></div>
+    </div>
+  </h3>
+  <div class="border rounded-3 border-2 p-2">
+    {% for announcement in announcements %}
+    <div class="px-3 py-2">
+      <div class="announcement text-start">
+        <div class="px-3 border-2 border-bottom rounded-3">
+          <div class="d-flex">
+            <h1 class="h3 flex-grow-1"><a style="text-decoration: none;" class="title-on-hover" href="{% url 'announcement-detail-page' pk=announcement.pk %}">{{ announcement.title | safe}}</a></h1>
+            <a href="{% url 'announcement-detail-page' pk=announcement.pk %}#comments" class="text-decoration-none"><i class="bi bi-chat-fill"></i> <span class="align-middle">{% get_comments_count announcement user %}</span></a>
+            {% if request.user|in_group:"execs" %}
+            <a class="px-2" href="{% url 'update-announcement' pk=announcement.pk %}">
             <i class="bi bi-pencil"></i>
-          </a>
-          <a class="px-2 text-danger" href="{% url 'delete-announcement' pk=announcement.pk %}">
+            </a>
+            <a class="px-2 text-danger" href="{% url 'delete-announcement' pk=announcement.pk %}">
             <i class="bi bi-trash"></i>
-          </a>
-          {% endif %}
+            </a>
+            {% endif %}
+          </div>
+          <p class="fw-bold"><a class="text-decoration-none" href="{% url 'show-profile' announcement.author %}">{{ announcement.author }}</a> - {{ announcement.announcement_date }}</p>
+          <p>{{ announcement.body | safe }}</p>
         </div>
-        <p class="fw-bold"><a class="text-decoration-none" href="{% url 'show-profile' announcement.author %}">{{ announcement.author }}</a> - {{ announcement.announcement_date }}</p>
-        <p>{{ announcement.body | safe }}</p>
       </div>
     </div>
+    {% endfor %}
   </div>
-  {% endfor %}
-      </div>
   <div class="py-2">
     <ul class="pagination">
       {% if page_obj.has_previous %}
