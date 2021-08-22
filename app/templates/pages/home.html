@@ -153,11 +153,9 @@
       </div>
     </h4>
     <div class="border text-center rounded-3 border-2 p-2">
-      {% for tournament in tournaments %}
-        <h4><a href="{% url 'tournament-detail-page' pk=tournament.pk %}">{{ tournament.tournament_name }}</a><br><small class="text-muted"><span class="fw-normal h6" id="events">{{ tournament.tournament_date }}</span></small></h4>
+      <h4><a href="{% url 'tournament-detail-page' pk=tournament.pk %}">{{ tournament.tournament_name }}</a><br><small class="text-muted"><span class="fw-normal h6" id="events">{{ tournament.tournament_date }}</span></small></h4>
         <div class="" id="countdown-container">
-        </div>
-      {% endfor %}
+      </div>
     </div>
   </div>
 </div>

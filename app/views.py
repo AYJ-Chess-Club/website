@@ -24,13 +24,6 @@ from .models import Announcement, Lesson, Tournament
 
 
 class HomeView(ListView):
-    # model = Announcement
-    # template_name = "pages/home.html"
-    # paginate_by = 4
-    # query_set = Announcement.objects.all()
-    # context_object_name = "announcements"
-    # ordering = ["-announcement_date"]
-
     context_object_name = "home_list"
     template_name = "pages/home.html"
     queryset = Announcement.objects.all()
@@ -40,7 +33,7 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context["announcements"] = Announcement.objects.all()
-        context["tournaments"] = Tournament.objects.all()
+        context["tournament"] = Tournament.objects.latest("id")
         return context
 
 
