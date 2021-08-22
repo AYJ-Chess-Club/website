@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}{{ tournament.tournament_name|striptags|safe }}{% endblock %}
+{% load auth_extras %}
+{% load comment_tags %}
+{% block js %}
+<script>
+  const goBack = () => {
+    window.history.go(-1);
+  };
+</script>
+{% endblock %}
+{% block content %}
+<div class="container">
+  <br>
+  <div class="d-flex">
+    <h1 class="flex-grow-1"><u>{{ tournament.tournament_name | safe }}</u></h1>
+    {% if request.user|in_group:"execs" %}
+    <a class="px-2" href="{% url 'update-tournament' pk=tournament.pk %}">
+    <i class="bi bi-pencil"></i>
+    </a>
+    <a class="px-2 text-danger" href="{% url 'delete-tournament' pk=tournament.pk %}">
+    <i class="bi bi-trash"></i>
+    </a>
+    {% endif %}
+  </div>
+  <h5>Tournament link: <a href="{{ tournament.tournament_link }}">{{ tournament.tournament_link }}</a></h5>
+  <h5>Tournament date: {{ tournament.tournament_date }}</h5>
+  <p>{{ tournament.tournament_description | safe }}</p>
+  <div class="py-3">
+    <button onclick="goBack()" class="btn btn-primary">
+    Go Back
+    </button>
+  </div>
+  <br>
+  <hr style="height: 2px;">
+  {% render_comments tournament request %}
+</div>
+{% endblock %}

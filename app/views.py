@@ -19,29 +19,27 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import AnnouncementForm, EditAnnouncementForm, EditLessonForm, LessonForm
-from .models import Announcement, Lesson
+from .forms import EditAnnouncementForm, EditLessonForm, LessonForm, EditTournamentForm
+from .models import Announcement, Lesson, Tournament
 
 
 class HomeView(ListView):
-    model = Announcement
+    context_object_name = "home_list"
     template_name = "pages/home.html"
+    queryset = Announcement.objects.all()
     paginate_by = 4
-    query_set = Announcement.objects.all()
-    context_object_name = "announcements"
     ordering = ["-announcement_date"]
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context["announcements"] = Announcement.objects.all()
+        context["tournament"] = Tournament.objects.latest("id")
+        return context
 
 
 class AnnouncementDetailView(DetailView):
     model = Announcement
     template_name = "announcements/announcement.html"
-
-
-class AddAnnouncementView(SuccessMessageMixin, CreateView):
-    model = Announcement
-    form_class = AnnouncementForm
-    template_name = "announcements/add_announcement.html"
-    success_message = "Your announcement was posted successfully"
 
 
 class UpdateAnnouncementView(SuccessMessageMixin, UpdateView):
@@ -58,6 +56,22 @@ class DeleteAnnouncementView(SuccessMessageMixin, DeleteView):
     def get_success_url(self):
         messages.success(self.request, "The announcement was successfully deleted")
         return reverse("home")
+
+
+class TournamentDetailView(DetailView):
+    model = Tournament
+    template_name = "tournaments/tournament.html"
+
+
+class UpdateTournamentView(UpdateView):
+    model = Tournament
+    template_name = "tournaments/update_tournament.html"
+    form_class = EditTournamentForm
+
+
+class DeleteTournamentView(SuccessMessageMixin, DeleteView):
+    model = Tournament
+    template_name = "tournaments/delete_tournament.html"
 
 
 @login_required()
