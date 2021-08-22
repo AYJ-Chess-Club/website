@@ -11,6 +11,13 @@
 
 A. Y. Jackson's Chess club website. Built using the Django framework with SQLite3 backend.
 
+Features:
+- Announcements with rich text editing
+- Lessons with categorisation (beginner, intermediate, hard)
+- Comments integrated with announcements, lessons, and tournament posts.
+- Custom user profiles with user mention integration
+- Chessboard.js integration
+
 [Website](https://ayjchess.pythonanywhere.com)
 
 ## Getting started
