@@ -64,18 +64,22 @@ class DeleteAnnouncementView(SuccessMessageMixin, DeleteView):
         messages.success(self.request, "The announcement was successfully deleted")
         return reverse("home")
 
+
 class TournamentDetailView(DetailView):
     model = Tournament
     template_name = "tournaments/tournament.html"
+
 
 class UpdateTournamentView(UpdateView):
     model = Tournament
     template_name = "tournaments/update_tournament.html"
     form_class = EditTournamentForm
 
+
 class DeleteTournamentView(SuccessMessageMixin, DeleteView):
     model = Tournament
     template_name = "tournaments/delete_tournament.html"
+
 
 @login_required()
 def LessonLandingPage(request):

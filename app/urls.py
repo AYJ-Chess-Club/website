@@ -58,7 +58,19 @@ urlpatterns = [
     path("privacy-policy/", privacy_policy, name="privacy-policy"),
     path("pdf/terms-of-service/", terms_pdf, name="pdf-tos"),
     path("pdf/privacy-policy/", privacy_pdf, name="pdf-privacy"),
-    path("tournaments/<int:pk>/", TournamentDetailView.as_view(), name="tournament-detail-page"),
-    path("admin/app/tournament/<int:pk>/change/", UpdateTournamentView.as_view(), name="update-tournament"),
-    path("tournament/<int:pk>/delete/", DeleteTournamentView.as_view(), name="delete-tournament"),
+    path(
+        "tournaments/<int:pk>/",
+        TournamentDetailView.as_view(),
+        name="tournament-detail-page",
+    ),
+    path(
+        "admin/app/tournament/<int:pk>/change/",
+        UpdateTournamentView.as_view(),
+        name="update-tournament",
+    ),
+    path(
+        "tournament/<int:pk>/delete/",
+        DeleteTournamentView.as_view(),
+        name="delete-tournament",
+    ),
 ]

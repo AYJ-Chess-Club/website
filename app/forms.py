@@ -1,5 +1,4 @@
 from django import forms
-from django.forms import widgets
 from .models import Announcement, Lesson, Tournament, lessonDifficulty
 
 
@@ -75,10 +74,16 @@ class EditLessonForm(forms.ModelForm):
             "body": forms.Textarea(attrs={"class": "form-control"}),
         }
 
+
 class EditTournamentForm(forms.ModelForm):
     class Meta:
         model = Tournament
-        fields = ("tournament_name", "tournament_date", "tournament_link", "tournament_description")
+        fields = (
+            "tournament_name",
+            "tournament_date",
+            "tournament_link",
+            "tournament_description",
+        )
 
         widgets = {
             "tournament_name": forms.TextInput(attrs={"class": "form-control"}),

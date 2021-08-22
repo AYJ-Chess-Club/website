@@ -10,19 +10,36 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('app', '0003_alter_lesson_difficulty'),
+        ("app", "0003_alter_lesson_difficulty"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Tournament',
+            name="Tournament",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tournament_name', models.CharField(max_length=225)),
-                ('tournament_date', models.DateField(blank=True, null=True)),
-                ('tournament_link', models.CharField(max_length=2021)),
-                ('tournament_description', ckeditor.fields.RichTextField(blank=True, null=True)),
-                ('tournament_author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("tournament_name", models.CharField(max_length=225)),
+                ("tournament_date", models.DateField(blank=True, null=True)),
+                ("tournament_link", models.CharField(max_length=2021)),
+                (
+                    "tournament_description",
+                    ckeditor.fields.RichTextField(blank=True, null=True),
+                ),
+                (
+                    "tournament_author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

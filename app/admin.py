@@ -32,15 +32,27 @@ class AnnouncementAdmin(admin.ModelAdmin):
 
 
 class TournamentAdmin(admin.ModelAdmin):
-    list_display = ["tournament_name", "tournament_date", "author", "tournament_link", "tournament_description"]
+    list_display = [
+        "tournament_name",
+        "tournament_date",
+        "author",
+        "tournament_link",
+        "tournament_description",
+    ]
 
-    fields = ("tournament_name", "tournament_date", "tournament_link", "tournament_description")
+    fields = (
+        "tournament_name",
+        "tournament_date",
+        "tournament_link",
+        "tournament_description",
+    )
 
     def save_model(self, request, obj, *args, **kwargs):
         if getattr(obj, "author", None) is None:
             obj.author = request.user
 
         obj.save()
+
 
 # Register your models here.
 admin.site.register(Tournament, TournamentAdmin)
