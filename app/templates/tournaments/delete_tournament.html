@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 {% load auth_extras %}
-{% block title %}{% if request.user|in_group:"execs" %}Delete Lesson{% else %}Error{% endif %}{% endblock %}
+{% block title %}{% if request.user|in_group:"execs" %}Delete tournament{% else %}Error{% endif %}{% endblock %}
 {% block content %}
 {% if request.user|in_group:"execs" %}
 <div class="px-3">
   <div class="py-4">
-    <h1>Delete: <a href="{% url 'lesson-detail-page' pk=lesson.pk %}">{{ lesson.title }}</a></h1>
+    <h1>Delete: <a href="{% url 'tournament-detail-page' pk=tournament.pk %}">{{ tournament.tournament_name }}</a></h1>
 <br>
 <form action="" method="POST" class="form-group">
   {% csrf_token %}
   {{ form.as_p }}
   {{ form.media }}
   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-  Delete Lesson
+  Delete tournament
   </button>
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog text-dark">
@@ -21,7 +21,7 @@
           <h5 class="modal-title" id="modalTitle">Confirm Delete</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">This is permanent. Do you really want to delete <code>{{ lesson.title }}</code>?</div>
+        <div class="modal-body">This is permanent. Do you really want to delete <code>{{ tournament.tournament_name }}</code>?</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
           <button type="submit" class="btn btn-danger">Delete</button>

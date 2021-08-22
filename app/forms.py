@@ -1,5 +1,6 @@
 from django import forms
-from .models import Announcement, Lesson, lessonDifficulty
+from django.forms import widgets
+from .models import Announcement, Lesson, Tournament, lessonDifficulty
 
 
 difficulty_levels = lessonDifficulty.objects.all().values_list(
@@ -72,4 +73,16 @@ class EditLessonForm(forms.ModelForm):
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
             "body": forms.Textarea(attrs={"class": "form-control"}),
+        }
+
+class EditTournamentForm(forms.ModelForm):
+    class Meta:
+        model = Tournament
+        fields = ("tournament_name", "tournament_date", "tournament_link", "tournament_description")
+
+        widgets = {
+            "tournament_name": forms.TextInput(attrs={"class": "form-control"}),
+            "tournament_date": forms.TextInput(attrs={"class": "form-control"}),
+            "tournament_link": forms.TextInput(attrs={"class": "form-control"}),
+            "tournament_description": forms.Textarea(attrs={"class": "form-control"}),
         }

@@ -1,11 +1,13 @@
 from django.urls import path
 from .views import (
+    DeleteTournamentView,
     HomeView,
     AnnouncementDetailView,
-    AddAnnouncementView,
     LessonDetailView,
     LessonDisplayView,
     LessonLandingPage,
+    TournamentDetailView,
+    UpdateTournamentView,
     events_page,
     about_page,
     UpdateAnnouncementView,
@@ -21,16 +23,10 @@ from .views import (
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
-    # path("admins/dashboard/", views.Dashboard, name="admin-dashboard"),
     path(
-        "announcements/<int:pk>",
+        "announcements/<int:pk>/",
         AnnouncementDetailView.as_view(),
         name="announcement-detail-page",
-    ),
-    path(
-        "admin/app/announcement/add/",
-        AddAnnouncementView.as_view(),
-        name="add-announcement",
     ),
     path(
         "admin/app/announcement/<int:pk>/change/",
@@ -38,7 +34,7 @@ urlpatterns = [
         name="update-announcement",
     ),
     path(
-        "admins/announcements/<int:pk>/delete",
+        "admins/announcements/<int:pk>/delete/",
         DeleteAnnouncementView.as_view(),
         name="delete-announcement",
     ),
@@ -52,7 +48,7 @@ urlpatterns = [
         name="update-lesson",
     ),
     path(
-        "admins/lessons/<int:pk>/delete",
+        "admins/lessons/<int:pk>/delete/",
         DeleteLessonView.as_view(),
         name="delete-lesson",
     ),
@@ -62,4 +58,7 @@ urlpatterns = [
     path("privacy-policy/", privacy_policy, name="privacy-policy"),
     path("pdf/terms-of-service/", terms_pdf, name="pdf-tos"),
     path("pdf/privacy-policy/", privacy_pdf, name="pdf-privacy"),
+    path("tournaments/<int:pk>/", TournamentDetailView.as_view(), name="tournament-detail-page"),
+    path("admin/app/tournament/<int:pk>/change/", UpdateTournamentView.as_view(), name="update-tournament"),
+    path("tournament/<int:pk>/delete/", DeleteTournamentView.as_view(), name="delete-tournament"),
 ]
