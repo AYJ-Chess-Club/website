@@ -81,7 +81,7 @@
       <h3 style="background-color: #282c34; color: #eee;" class="rounded px-2" id="announcements">
         <div class="d-flex">
           <div class="flex-grow-1">Announcements</div>
-          <div class="mb-1"><i class="bi bi-megaphone"></i></div>
+          <div class="mb-1"><i class="bi bi-megaphone-fill"></i></div>
         </div>
       </h3>
       <div class="border rounded-3 border-2 p-2">
@@ -149,11 +149,11 @@
       <h4 style="background-color: #282c34; color: #eee;" class="rounded px-2" id="announcements">
         <div class="d-flex">
           <div class="flex-grow-1">Upcoming tournaments</div>
-          <div class="mb-1"><i class="bi bi-trophy"></i></div>
+          <div class="mb-1"><i class="bi bi-trophy-fill"></i></div>
         </div>
       </h4>
       <div class="border text-center rounded-3 border-2 p-2">
-        <h4><a href="{% url 'tournament-detail-page' pk=tournament.pk %}">{{ tournament.tournament_name }}</a><br><small class="text-muted"><span class="fw-normal h6" id="events">{{ tournament.tournament_date }}</span></small></h4>
+        <h4><a class="text-decoration-none" href="{% if tournament %}{% url 'tournament-detail-page' pk=tournament.pk %}{% else %}{% endif %}">{% if tournament %}{{ tournament.tournament_name }}{% else %}<small class="fs-6 text-muted fw-normal">There are no tournaments at the moment</small> {% endif %}</a><br><small class="text-muted"><span class="fw-normal h6" id="events">{{ tournament.tournament_date }}</span></small></h4>
         <div class="" id="countdown-container">
         </div>
       </div>

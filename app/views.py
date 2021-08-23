@@ -1,15 +1,21 @@
 # from django.contrib.auth import get_user_model
+import re
+
+from django.contrib.auth.models import User
+from members.lichess_api import get_tournament_rankings
 import markdown
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
 from django.http.response import FileResponse
 
 # from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic import (
     CreateView,
@@ -19,7 +25,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import EditAnnouncementForm, EditLessonForm, LessonForm, EditTournamentForm
+from .forms import EditAnnouncementForm, EditLessonForm, EditTournamentForm, LessonForm
 from .models import Announcement, Lesson, Tournament
 
 
@@ -28,12 +34,17 @@ class HomeView(ListView):
     template_name = "pages/home.html"
     queryset = Announcement.objects.all()
     paginate_by = 4
-    ordering = ["-announcement_date"]
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context["announcements"] = Announcement.objects.all()
-        context["tournament"] = Tournament.objects.latest("id")
+        announcement_paginator = Paginator(Announcement.objects.all().order_by(
+            "-announcement_date"
+        ), self.paginate_by)
+        context["announcements"] = announcement_paginator.page(context["page_obj"].number)
+        try:
+            context["tournament"] = Tournament.objects.latest("id")
+        except:
+            context["tournament"] = Tournament.objects.all().order_by("-id")
         return context
 
 
@@ -61,6 +72,39 @@ class DeleteAnnouncementView(SuccessMessageMixin, DeleteView):
 class TournamentDetailView(DetailView):
     model = Tournament
     template_name = "tournaments/tournament.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(TournamentDetailView, self).get_context_data(**kwargs)
+        tournament_object = get_object_or_404(Tournament, id=self.kwargs.get("pk"))
+        tournament_url = str(tournament_object.tournament_link)
+        tournament_arr = [] 
+        tournament_arr = tournament_url.split("/")
+        tournament_id = tournament_arr[-1]
+        try:
+            tournament_json = get_tournament_rankings(tournament_id)
+            context["number_of_participants"] = str(tournament_json["nbPlayers"])
+            context["minutes"] = str(tournament_json["minutes"])
+            context["description"] = str(tournament_json["description"])
+            context["variant"] = str(tournament_json["variant"])
+            context["winner"] = str(tournament_json["standing"]["players"][0]["name"])
+
+            participants = {}
+            for i in tournament_json["standing"]["players"]:
+                participants[str(i["name"])] = (i["score"])
+
+            labels = str(participants)
+            labels = labels.replace("{", "").replace("}", "")
+            labels = re.sub(r'\:.\d+', "", labels)
+
+            context["participants_ranking"] = participants
+            context["labels_rankings"] = labels
+            context["has_data_for_graph"] = True
+        except:
+            pass
+
+        # userprofile_object = get_object_or_404(User, username=self.kwargs.get("username"))
+
+        return context
 
 
 class UpdateTournamentView(UpdateView):

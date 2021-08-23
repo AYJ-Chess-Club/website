@@ -83,6 +83,15 @@ img {
   color: brown;
 }
 
+pre code {
+  border-radius: 5px;
+}
+
+.hljs {
+  padding: 1.5em;
+  background-color: #f8f9fa;
+  border: 2px solid #eee;
+}
 /*
 *
 *  Theming
