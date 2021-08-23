@@ -74,5 +74,7 @@ urlpatterns = [
         DeleteTournamentView.as_view(),
         name="delete-tournament",
     ),
-    path("past-tournaments/", TournamentListView.as_view(), name="archived-tournaments"),
+    path(
+        "past-tournaments/", TournamentListView.as_view(), name="archived-tournaments"
+    ),
 ]
