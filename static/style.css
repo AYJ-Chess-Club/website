@@ -3,6 +3,10 @@
 *  Basic styles
 *
 */
+html, body {
+  padding: 0;
+  margin: 0;
+}
 
 blockquote {
   margin: 0;
@@ -24,6 +28,7 @@ table {
   width: 100%;
   overflow: auto;
   border: none;
+  margin: 0;
 }
 
 table th {
@@ -83,6 +88,15 @@ img {
   color: brown;
 }
 
+pre code {
+  border-radius: 5px;
+}
+
+.hljs {
+  padding: 1.5em;
+  background-color: #f8f9fa;
+  border: 2px solid #eee;
+}
 /*
 *
 *  Theming

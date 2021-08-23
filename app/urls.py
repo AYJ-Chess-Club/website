@@ -7,6 +7,7 @@ from .views import (
     LessonDisplayView,
     LessonLandingPage,
     TournamentDetailView,
+    TournamentListView,
     UpdateTournamentView,
     events_page,
     about_page,
@@ -72,5 +73,8 @@ urlpatterns = [
         "tournament/<int:pk>/delete/",
         DeleteTournamentView.as_view(),
         name="delete-tournament",
+    ),
+    path(
+        "past-tournaments/", TournamentListView.as_view(), name="archived-tournaments"
     ),
 ]

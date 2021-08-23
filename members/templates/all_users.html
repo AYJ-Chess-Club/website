@@ -9,9 +9,53 @@
       <i class="pb-1 bi bi-people-fill"></i>
     </div>
 </h3>
+
+<div class="py-2">
+  <div class="border rounded">
+    <div class="p-2">
+      <table>
+        <tbody>
+          <tr>
+            <th>Title</th>
+            <th>Range</th>
+          </tr>
+          <tr class="fw-bold" style="color: #aaa!important;">
+            <td>beginner</td>
+            <td>< 5</td>
+          </tr>
+          <tr class="fw-bold" style="color: #009acd!important;">
+            <td>novice</td>
+            <td>5 - 9</td>
+          </tr>
+          <tr class="fw-bold" style="color: #00a900!important;">
+            <td>amateur</td>
+            <td>10 - 14</td>
+          </tr>
+          <tr class="fw-bold" style="color: blue!important;">
+            <td>intermediate</td>
+            <td>15 - 24</td>
+          </tr>
+          <tr class="fw-bold" style="color: purple!important;">
+            <td>strong intermediate</td>
+            <td>24 - 39</td>
+          </tr>
+          <tr class="fw-bold" style="color: #ffb100!important;">
+            <td>advanced</td>
+            <td>39 - 80</td>
+          </tr>
+          <tr class="fw-bold" style="color: #e00!important;">
+            <td>expert</td>
+            <td>$\geq$ 80</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
   <div class="list-group py-2">
     {% for user in all_users %}
-    <a href=" {% url 'show-profile' user.username %} " class="users-list-group-item list-group-item list-group-item-action">{% if user|in_group:"execs" %}{{ user.username }}  <i class="bi bi-shield-shaded"></i> {% else %} {{ user.username }} {% endif %}</a>
+    <a style="color: {{ user.userprofile.user_color }};" href=" {% url 'show-profile' user.username %} " class="fw-bold users-list-group-item list-group-item list-group-item-action">{% if user|in_group:"execs" %}{{ user.username }}  <i style="color: #333;" class="bi bi-shield-shaded"></i> {% else %} {{ user.username }} {% endif %}</a>
     {% endfor %}
   </div>
   <div class="py-2">

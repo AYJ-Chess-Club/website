@@ -308,6 +308,66 @@ def all_users_view(request):
         group_list.append(group.name)
     formatted_group_list = ", ".join(str(group) for group in group_list)
 
+    beginner = "#aaa!important"
+    novice = "#009acd!important"
+    amateur = "#00a900!important"
+    intermediate = "blue!important"
+    strong_intermediate = "purple!important"
+    advanced = "#ffb100!important"
+    expert = "#e00!important"
+
+    for user in user_list:
+
+        user_score = 0
+
+        lichess_username = user.userprofile.user_lichess_username
+
+        if user.userprofile.user_lichess_username:
+            from .lichess_api import get_tournament_rankings
+            from app.models import Tournament
+
+            tournament_objects = Tournament.objects.all()
+            tournament_ids = []
+            for tournament_object in tournament_objects:
+                tournament_url = str(tournament_object.tournament_link)
+                tournament_arr = tournament_url.split("/")
+                tournament_id = tournament_arr[-1]
+                tournament_ids.append(tournament_id)
+
+            try:
+                for id in tournament_ids:
+                    tournament_json = get_tournament_rankings(id)
+                    for player in tournament_json["standing"]["players"]:
+                        if player["name"] == lichess_username:
+                            user_score += player["score"]
+            except Exception:
+                pass
+
+        else:
+            pass
+
+        if user_score < 5:
+            user.userprofile.user_color = beginner
+            user.userprofile.save()
+        elif user_score >= 5 and user_score < 10:
+            user.userprofile.user_color = novice
+            user.userprofile.save()
+        elif user_score >= 10 and user_score < 15:
+            user.userprofile.user_color = amateur
+            user.userprofile.save()
+        elif user_score >= 15 and user_score < 25:
+            user.userprofile.user_color = intermediate
+            user.userprofile.save()
+        elif user_score >= 25 and user_score < 40:
+            user.userprofile.user_color = strong_intermediate
+            user.userprofile.save()
+        elif user_score >= 40 and user_score < 80:
+            user.userprofile.user_color = advanced
+            user.userprofile.save()
+        elif user_score >= 80:
+            user.userprofile.user_color = expert
+            user.userprofile.save()
+
     return render(
         request,
         "all_users.html",
