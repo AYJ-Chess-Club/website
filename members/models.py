@@ -9,6 +9,7 @@ from django.urls import reverse
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user_color = models.CharField(max_length=225, default="#aaa!important")
     user_profile_pic = CharField(max_length=10000, blank=True)
     user_cfc_rating = IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(3500)],

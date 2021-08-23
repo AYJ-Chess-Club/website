@@ -27,8 +27,11 @@
           <a class="nav-link" href="{% url 'all-users' %}">Users</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'events-page' %}">Events</a>
+          <a class="nav-link" href="{% url 'archived-tournaments' %}">Past tournaments</a>
         </li>
+        {% comment %} <li class="nav-item">
+          <a class="nav-link" href="{% url 'events-page' %}">Events</a>
+        </li> {% endcomment %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'lesson-page' %}">Lessons</a>
         </li>

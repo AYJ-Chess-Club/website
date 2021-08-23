@@ -103,8 +103,6 @@ class TournamentDetailView(DetailView):
         except Exception:
             pass
 
-        # userprofile_object = get_object_or_404(User, username=self.kwargs.get("username"))
-
         return context
 
 
@@ -114,9 +112,20 @@ class UpdateTournamentView(UpdateView):
     form_class = EditTournamentForm
 
 
+class TournamentListView(ListView):
+    model = Tournament
+    template_name = "pages/tournaments.html"
+    queryset = Tournament.objects.all().order_by("-id")
+    context_object_name = "tournaments"
+
+
 class DeleteTournamentView(SuccessMessageMixin, DeleteView):
     model = Tournament
     template_name = "tournaments/delete_tournament.html"
+    
+    def get_success_url(self):
+        messages.success(self.request, "The announcement was successfully deleted")
+        return reverse("home")
 
 
 @login_required()
