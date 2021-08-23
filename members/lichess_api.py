@@ -55,6 +55,7 @@ def get_classical_rating(username):
         parsed_rating = "N/A"
         return parsed_rating
 
+
 def get_tournament_rankings(id):
     tournament_json = requests.get(f"{lichess_api_base}tournament/{id}").json()
     return tournament_json

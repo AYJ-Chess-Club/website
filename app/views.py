@@ -1,7 +1,6 @@
 # from django.contrib.auth import get_user_model
 import re
 
-from django.contrib.auth.models import User
 from members.lichess_api import get_tournament_rankings
 import markdown
 
@@ -37,13 +36,15 @@ class HomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        announcement_paginator = Paginator(Announcement.objects.all().order_by(
-            "-announcement_date"
-        ), self.paginate_by)
-        context["announcements"] = announcement_paginator.page(context["page_obj"].number)
+        announcement_paginator = Paginator(
+            Announcement.objects.all().order_by("-announcement_date"), self.paginate_by
+        )
+        context["announcements"] = announcement_paginator.page(
+            context["page_obj"].number
+        )
         try:
             context["tournament"] = Tournament.objects.latest("id")
-        except:
+        except Exception:
             context["tournament"] = Tournament.objects.all().order_by("-id")
         return context
 
@@ -77,7 +78,7 @@ class TournamentDetailView(DetailView):
         context = super(TournamentDetailView, self).get_context_data(**kwargs)
         tournament_object = get_object_or_404(Tournament, id=self.kwargs.get("pk"))
         tournament_url = str(tournament_object.tournament_link)
-        tournament_arr = [] 
+        tournament_arr = []
         tournament_arr = tournament_url.split("/")
         tournament_id = tournament_arr[-1]
         try:
@@ -90,16 +91,16 @@ class TournamentDetailView(DetailView):
 
             participants = {}
             for i in tournament_json["standing"]["players"]:
-                participants[str(i["name"])] = (i["score"])
+                participants[str(i["name"])] = i["score"]
 
             labels = str(participants)
             labels = labels.replace("{", "").replace("}", "")
-            labels = re.sub(r'\:.\d+', "", labels)
+            labels = re.sub(r"\:.\d+", "", labels)
 
             context["participants_ranking"] = participants
             context["labels_rankings"] = labels
             context["has_data_for_graph"] = True
-        except:
+        except Exception:
             pass
 
         # userprofile_object = get_object_or_404(User, username=self.kwargs.get("username"))
