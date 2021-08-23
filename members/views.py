@@ -322,10 +322,10 @@ def all_users_view(request):
 
         lichess_username = user.userprofile.user_lichess_username
 
-
         if user.userprofile.user_lichess_username:
             from .lichess_api import get_tournament_rankings
             from app.models import Tournament
+
             tournament_objects = Tournament.objects.all()
             tournament_ids = []
             for tournament_object in tournament_objects:
@@ -333,7 +333,7 @@ def all_users_view(request):
                 tournament_arr = tournament_url.split("/")
                 tournament_id = tournament_arr[-1]
                 tournament_ids.append(tournament_id)
-            
+
             try:
                 for id in tournament_ids:
                     tournament_json = get_tournament_rankings(id)
@@ -342,9 +342,9 @@ def all_users_view(request):
                             user_score += player["score"]
             except Exception:
                 pass
-    
+
         else:
-            pass  
+            pass
 
         if user_score < 5:
             user.userprofile.user_color = beginner
@@ -367,10 +367,6 @@ def all_users_view(request):
         elif user_score >= 80:
             user.userprofile.user_color = expert
             user.userprofile.save()
-
-        
-
-
 
     return render(
         request,

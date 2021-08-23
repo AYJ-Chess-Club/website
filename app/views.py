@@ -122,7 +122,7 @@ class TournamentListView(ListView):
 class DeleteTournamentView(SuccessMessageMixin, DeleteView):
     model = Tournament
     template_name = "tournaments/delete_tournament.html"
-    
+
     def get_success_url(self):
         messages.success(self.request, "The announcement was successfully deleted")
         return reverse("home")
