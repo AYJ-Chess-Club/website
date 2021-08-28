@@ -153,11 +153,65 @@
         </div>
       </h4>
       <div class="border text-center rounded-3 border-2 p-2">
-        <h4><a class="text-decoration-none" href="{% if tournament %}{% url 'tournament-detail-page' pk=tournament.pk %}{% else %}{% endif %}">{% if tournament %}{{ tournament.tournament_name }}{% else %}<small class="fs-6 text-muted fw-normal">There are no tournaments at the moment</small> {% endif %}</a><br><small class="text-muted"><span class="fw-normal h6" id="events">{{ tournament.tournament_date }}</span></small></h4>
+        <h4><a class="text-decoration-none" id="tourneyTitle" href="{% if tournament %}{% url 'tournament-detail-page' pk=tournament.pk %}{% else %}{% endif %}">{% if tournament %}{{ tournament.tournament_name }}{% else %}<small class="fs-6 text-muted fw-normal">There are no tournaments at the moment</small> {% endif %}</a><br><small class="text-muted"><span class="fw-normal h6" id="events">{{ tournament.tournament_date|date:"M d, Y" }}, {{ tournament.tournament_date|time:"g:i A" }}</span></small></h4>
         <div class="" id="countdown-container">
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+const tourneyDate = document.getElementById("events").innerHTML 
+const tourneyTitle = document.getElementById("tourneyTitle")
+const now = new Date().getTime()
+
+let oldTime = tourneyDate.split(",")
+
+let parsedTourneyDate = ""
+
+let [monthAndDay, year, time] = tourneyDate.replaceAll(" ","").split(",")
+
+let newTimeAM = ""
+let newTimePM = ""
+
+if (time.includes("AM")) {
+  newTimeAM = time.replace("AM","")
+}
+
+if (time.includes("PM")) {
+  newTimePM = time.replace("PM", "")
+}
+
+let [hours, minutes] = newTimePM.split(":")
+
+if (hours === "12") {
+  hours = "00"
+}
+
+hours = parseInt(hours, 10) + 12;
+
+console.log(hours);
+console.log(minutes);
+
+const finishedParsedTimeAM = `${oldTime[0]}, ${oldTime[1].replace(" ","")}, ${newTimeAM}`
+const finishedParsedTimePM = `${oldTime[0]}, ${oldTime[1].replace(" ","")}, ${hours}:${minutes}`
+console.log(finishedParsedTimePM)
+
+const newDateTimefromParsedTimeAM = Date.parse(finishedParsedTimeAM)
+const newDateTimefromParsedTimePM = Date.parse(finishedParsedTimePM)
+
+let oldtourneyTitle = tourneyTitle.innerHTML
+
+if (newDateTimefromParsedTimeAM < now) {
+  tourneyTitle.innerHTML = `${oldtourneyTitle} - <span style="color: red;">This tournament has ended</span>` 
+} else if (newDateTimefromParsedTimeAM > now) {
+  tourneyTitle.innerHTML = oldtourneyTitle
+}
+
+if (newDateTimefromParsedTimePM < now) {
+  tourneyTitle.innerHTML = `${oldtourneyTitle} - <span style="color: red;">This tournament has ended</span>` 
+} else if (newDateTimefromParsedTimePM > now) {
+  tourneyTitle.innerHTML = oldtourneyTitle
+}
+</script>
 {% endblock %}
