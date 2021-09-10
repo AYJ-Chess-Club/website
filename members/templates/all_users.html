@@ -55,7 +55,7 @@
 
   <div class="list-group py-2">
     {% for user in all_users %}
-    <a style="color: {{ user.userprofile.user_color }};" href=" {% url 'show-profile' user.username %} " class="fw-bold users-list-group-item list-group-item list-group-item-action">{% if user|in_group:"execs" %}{{ user.username }}  <i style="color: #333;" class="bi bi-shield-shaded"></i> {% else %} {{ user.username }} {% endif %}</a>
+    <a style="color: {{ user.userprofile.user_color }};" href=" {% url 'show-profile' user.username %} " class="fw-bold users-list-group-item list-group-item list-group-item-action">{% if user|in_group:"execs" %}{{ user.username }} - {{ user.first_name }} <i style="color: #333;" class="bi bi-shield-shaded"></i> {% else %} {{ user.username }} {% endif %}</a>
     {% endfor %}
   </div>
   <div class="py-2">
