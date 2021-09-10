@@ -266,16 +266,16 @@ JAZZMIN_SETTINGS = {
     "copyright": "AYJ Chess Club",
     "show_ui_builder": True,
     "topmenu_links": [
-        {"name": "Back to Home",  "url": "home"},
-
-        {"name": "Support", "url": "https://github.com/AYJ-Chess-Club/website#issues--support", "new_window": True},
-
-
-        {"name": "Discord",  "url": "https://discord.gg/tvVD5baNth", "new_window": True},
+        {"name": "Back to Home", "url": "home"},
+        {
+            "name": "Support",
+            "url": "https://github.com/AYJ-Chess-Club/website#issues--support",
+            "new_window": True,
+        },
+        {"name": "Discord", "url": "https://discord.gg/tvVD5baNth", "new_window": True},
     ],
     "search_model": "auth.User",
 }
-
 
 
 JAZZMIN_UI_TWEAKS = {
